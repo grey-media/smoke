@@ -17,7 +17,7 @@ export default createStackNavigator(
     //устанавливаем стартовую страницу
     {
         headerMode: 'none',
-        initialRouteName: 'Home',
+        initialRouteName: 'Journal',
     }
 
 )
