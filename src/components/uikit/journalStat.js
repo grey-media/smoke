@@ -1,13 +1,12 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image, Button, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { w } from '../../../constants'
-import { Ionicons } from '@expo/vector-icons';
-import { BigBtn } from '../element';
+import { CircleBtn, BigBtn } from '../button';
 
 const JournalStat = props => {
     state = {
         text: '- ДОБАВИТЬ СИГАРЕТУ -',
-        action: props.datas
+        action: props.datas,
     }
     return (
         <View style={st.wrapper}>
@@ -15,12 +14,8 @@ const JournalStat = props => {
             <Text style={st.textH1}>СКУРЕНО ЗА ДЕНЬ 12 СИГАРЕТ</Text>
             <Text style={st.textGreen}>на 2 сигареты меньше, чем вчера</Text>
             <View style={st.buttonSet}>
-                <View style={st.icon}>
-                    <Ionicons name='md-arrow-back' size={32} color='#222'/>
-                </View>
-                <View style={st.icon}>
-                    <Ionicons name='md-create' size={32} color='#222' />
-                </View>
+            <CircleBtn action={this.state.action} iconName={'md-arrow-back'}/>
+            <CircleBtn action={this.state.action} iconName={'md-create'}/>
             </View>
         </View>
 
@@ -38,7 +33,7 @@ const st = StyleSheet.create({
         width: w * 0.7,
         paddingVertical: 12,
         borderRadius: 50,
-        marginBottom: 30,
+        marginBottom: 20,
         borderColor: '#b8ac56',
         borderWidth: 1,
     },
@@ -59,18 +54,9 @@ const st = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         width: w,
-        marginTop: 30
+        marginTop: 20
     },
-    icon: {
-        backgroundColor: '#f3e055',
-        borderColor: '#b8ac56',
-        borderWidth: 1,
-        width: 55,
-        height: 55,
-        borderRadius: 50, 
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
+    
 
 
 });

@@ -67,8 +67,8 @@ const st = StyleSheet.create({
         padding: 20,
     },
     avatar: {
-        width: w * 0.7,
-        height: w * 0.7,
+        width: w * 0.6,
+        height: w * 0.6,
     },
     cloneName: {
         fontWeight: '600', 

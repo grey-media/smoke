@@ -1,7 +1,9 @@
 import React from 'react';
 import {View} from 'react-native';
 //подключаем компонент header
-import { Header, JournalTop, JournalStat, TabMenu, TextGreen } from '../../src/components/uikit';
+import { JournalTop, JournalStat, TextGreen } from '../../src/components/uikit';
+import { Header } from '../../src/components/header';
+import { TabMenu } from '../../src/components/tabmenu';
 
 
 export default class JournalScreen extends React.Component {

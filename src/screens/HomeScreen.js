@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 //подключаем компонент header
-import { Header, MainTop } from '../../src/components/uikit';
+import { MainTop } from '../../src/components/uikit';
+import { Header } from '../../src/components/header';
 //подключаем размеры экрана
 import { h, w } from '../../constants'
 
