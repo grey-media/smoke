@@ -2,6 +2,7 @@ import React from 'react';
 import { createStackNavigator, StackNavigator } from 'react-navigation';
 import HomeScreen from '../screens/HomeScreen'
 import JournalScreen from '../screens/JournalScreen'
+import TestScreen from '../screens/TestScreen';
 //тут мы создаем навигацию
 
 
@@ -10,10 +11,11 @@ const LogInNav = createStackNavigator(
     {
       Home: HomeScreen,
       Journal: JournalScreen,
+      Test: TestScreen,
     },
     {
         headerMode: 'none',
-        initialRouteName: 'Journal',
+        initialRouteName: 'Test',
     }
   );
 
