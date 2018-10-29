@@ -7,7 +7,7 @@ export default StyleSheet.create({
         width: w * 0.7,
         paddingVertical: 12,
         borderRadius: 50,
-        marginBottom: 30,
+        marginTop: 25,
         borderColor: colors.yellowBorder,
         borderWidth: 1,
     },

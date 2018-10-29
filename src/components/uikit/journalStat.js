@@ -6,16 +6,19 @@ import { CircleBtn, BigBtn } from '../button';
 const JournalStat = props => {
     state = {
         text: '- ДОБАВИТЬ СИГАРЕТУ -',
-        action: props.datas,
+        action: props.datas.navigate('Home'),
     }
     return (
         <View style={st.wrapper}>
-            <BigBtn datas={this.state}/>
+            {/* <BigBtn
+                btnText={this.state.text}
+                btnAction={this.state.action}
+            /> */}
             <Text style={st.textH1}>СКУРЕНО ЗА ДЕНЬ 12 СИГАРЕТ</Text>
             <Text style={st.textGreen}>на 2 сигареты меньше, чем вчера</Text>
             <View style={st.buttonSet}>
-            <CircleBtn action={this.state.action} iconName={'md-arrow-back'}/>
-            <CircleBtn action={this.state.action} iconName={'md-create'}/>
+                {/* <CircleBtn action={this.state.action} iconName={'md-arrow-back'} />
+                <CircleBtn action={this.state.action} iconName={'md-create'} /> */}
             </View>
         </View>
 
@@ -56,7 +59,7 @@ const st = StyleSheet.create({
         width: w,
         marginTop: 20
     },
-    
+
 
 
 });

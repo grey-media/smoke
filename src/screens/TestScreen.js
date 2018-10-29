@@ -25,63 +25,49 @@ import { compose } from 'redux'
 // export default firebaseConnect()(TestScreen)
 
 
-// LOGIN USER IS WORK
+// LOGIN USER IS WORK, GET UID IS WORK
 class TestScreen extends React.Component {
-    render(){
+    render() {
         // use this.props.firebase
         // this.props.firebase.login({
         //     email: 'test@test.com',
         //     password: 'testest'
         //   })
-          console.log (this.props.auth())
 
-        return(
+        // console.log(this.props.profile)
+        // console.log(this.props.auth)
+
+        var e = 'test2@test.com'
+        var p = 'testest2'
+        return (
             <View>
-                <Text style={{marginTop: 50}}>Some Text</Text>
+                <Text style={{ marginTop: 50 }}>Some Text</Text>
                 <Button
-            title = 'auth'
-            onPress={() => this.props.firebase.login(
-                {
-                email: 'test@test.com',
-                password: 'testest',
-              }
-              )}/>
-              
-            {
-                !isLoaded(this.props.auth)
-                ? <Text>Loading...</Text>
-                : isEmpty(this.props.auth)
-                  ? <Text>Not Authed</Text>
-                  : <Text>Auth: {JSON.stringify(this.props.auth, null, 2)}</Text>
-            }
+                    title='auth'
+                    onPress={() => this.props.firebase.auth().signInWithEmailAndPassword(
+                        e, p
+                    ).then(() => console.log(this.props.firebase.auth()))} />
 
-              </View>
+                <Button
+                    title='user'
+                    onPress={() => console.log(this.props.firebase.auth().currentUser.uid)}
+                />
+
+            </View>
         )
-       
+
     }
 }
-// export default firebaseConnect()(TestScreen)
 export default compose(
 
     firebaseConnect(),
 
-    connect((state, {firebase: {auth}}) => ({
-      auth
+    connect((state) => ({
+        auth: state.firebase.auth,
+        profile: state.firebase.profile
     }))
 
-  )(TestScreen)
-
-// export default compose(
-
-//     firebaseConnect(() => [
-//       { path: 'test2' },
-//     ]),
-
-//     connect((state) => ({
-//       users: state.firebase.data,
-//     }))
-
-//   )(TestScreen)
+)(TestScreen)
 
 //CREATE USER IS WORK
 
@@ -94,7 +80,7 @@ export default compose(
 //               { username, email, gender}
 //             )
 //           }
-          
+
 //           // Call with info
 //           createNewUser({
 //             email: 'tes3@test.com',
@@ -113,11 +99,11 @@ export default compose(
 // class TestScreen extends React.Component {
 
 //     componentDidMount(){
-      
+
 //     }
 
 //     render() {
-        
+
 //         const x = this.props.users
 //         if(isEmpty(x) || !isLoaded(x)) {
 //             return(<Text>Loading...</Text>)
@@ -133,7 +119,7 @@ export default compose(
 //         </View>
 //         )}
 
-        
+
 // }
 // };
 
