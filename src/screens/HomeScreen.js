@@ -17,9 +17,18 @@ class HomeScreen extends React.Component {
         this.state = {
 
         }
+        console.ignoredYellowBox = [
+            'Setting a timer'
+        ];
     }
-
+    componentDidMount(){
+        //console.log(this.props.firebase.auth)
+        // if (this.props.auth.uid !== undefined){
+        //     this.props.navigation.navigate('Journal')
+        // }
+    }
     render() {
+        console.log(this.props.firebase.auth())
         return (
             <View style={styles.mainWrapper}>
                 <Header title='Первый шаг' />
@@ -29,16 +38,13 @@ class HomeScreen extends React.Component {
                         <Text style={styles.logoSlogan}>СПАСИ СЕБЯ ОТ СИГАРЕТ</Text>
                     </View>
                     <View style={styles.mainReg}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Journal')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
                             <BigBtn btnText='- ВХОД -'/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Registration')}>
                             <BigBtn btnText='- РЕГИСТРАЦИЯ -'/>
                         </TouchableOpacity>
-                        <Button
-                            title="Go to Journal"
-                            onPress={() => this.props.navigation.navigate('Journal')}
-                        />
+
                     </View>
                 </View>
             </View>

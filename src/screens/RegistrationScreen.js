@@ -10,6 +10,8 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { firebaseConnect } from 'react-redux-firebase'
 
+import {fbLogin, fbCreateJournal, fbCreateClone} from '../source/firebase'
+
 class RegistrationScreen extends React.Component {
 
     constructor(props) {
@@ -29,7 +31,6 @@ class RegistrationScreen extends React.Component {
     registration = () => {
 
         const createNewUser = ({ email, password, gender }) => {
-
             this.props.firebase.createUser(
                 { email, password },
                 { email, gender }
@@ -50,16 +51,14 @@ class RegistrationScreen extends React.Component {
                     error: errorMessage,
                 });
             }).then(() => {
-                this.props.firebase.auth().signInWithEmailAndPassword(
-                    this.state.email, this.state.password
-                )
+                fbLogin(this.props, this.state.email, this.state.password)
             }).then(() => {
-               const uid = this.props.auth.uid
-               console.log(uid)
-               const dateNow = new Date();
-               const date = `${dateNow.getFullYear()}-${dateNow.getMonth() + 1}-${dateNow.getDate()}`;
-               this.props.firebase.push(`journal/${uid}`, { date: date, uid: uid })
-           })
+                fbCreateJournal(this.props, this.props.auth.uid, this.state.sigarets)
+            }).then(() => {
+                fbCreateClone(this.props, this.props.auth.uid, this.state.sigarets, this.state.gender)
+            }).then(() => {
+                this.props.navigation.navigate('Journal')
+            })
         }
 
         createNewUser({
@@ -68,8 +67,9 @@ class RegistrationScreen extends React.Component {
             gender: this.state.gender,
         })
     }
+
     render() {
-        
+
         return (
             <View style={styles.mainWrapper}>
                 <Header title='Регистрация' />
