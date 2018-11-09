@@ -2,7 +2,7 @@ import React from 'react';
 import Nav from './src/config/routes';
 
 const App = () => (
-    <Nav />
+  <Nav />
 );
 
 export default App;

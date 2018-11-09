@@ -1,13 +1,15 @@
 import React from 'react';
-import { TouchableOpacity, Image } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import styles from './styles';
 
 
-const TabMenuBtn = props => {
-    return (
-        <TouchableOpacity style={styles.navBtn} >
-            <Image source = {props.source} style={{width: 32, height: 32}}/>
-        </TouchableOpacity>
-    )
+const TabMenuBtn = (props) => {
+  const { iconName } = props;
+  return (
+    <TouchableOpacity style={styles.navBtn}>
+      <MaterialCommunityIcons name={iconName} size={28} />
+    </TouchableOpacity>
+  );
 };
-export default TabMenuBtn; 
+export default TabMenuBtn;

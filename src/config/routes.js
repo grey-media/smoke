@@ -1,43 +1,85 @@
 import React from 'react';
-import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
+import { createSwitchNavigator, createBottomTabNavigator } from 'react-navigation';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { colors } from '../config/styles';
 import LoadingScreen from '../screens/LoadingScreen';
 import HomeScreen from '../screens/HomeScreen';
 import JournalScreen from '../screens/JournalScreen';
-import RegistrationScreen from '../screens/RegistrationScreen'
-import LoginScreen from '../screens/LoginScreen'
+import RegistrationScreen from '../screens/RegistrationScreen';
+import LoginScreen from '../screens/LoginScreen';
+import StatScreen from '../screens/StatScreen';
+import CemeteryScreen from '../screens/CemeteryScreen';
+import InfoScreen from '../screens/InfoScreen';
 import TestScreen from '../screens/TestScreen';
-//тут мы создаем навигацию
+import MainScreen from '../screens/MainScreen';
+// тут мы создаем навигацию
 
 
 const AuthNav = createSwitchNavigator(
-    {
-        Loading: LoadingScreen,
-        Home: HomeScreen,
-        Login: LoginScreen,
-        Registration: RegistrationScreen,
-        Journal: JournalScreen
-    },
-    {
-        initialRouteName: 'Loading'
-    }
+  {
+    Loading: LoadingScreen,
+    Home: HomeScreen,
+    Login: LoginScreen,
+    Journal: MainScreen,
+    Registration: RegistrationScreen,
+  },
+  {
+    initialRouteName: 'Loading',
+  },
 );
 
-const LogInNav = createStackNavigator(
-    {
-        Home: HomeScreen,
-        Journal: JournalScreen,
-        Login: LoginScreen,
-        Registration: RegistrationScreen,
-        Test: TestScreen,
+export const TabNavigator = createBottomTabNavigator(
+
+  {
+    Journal: {
+      screen: JournalScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name="human" size={28} color={tintColor} />,
+      },
     },
-    {
-        headerMode: 'none',
-        initialRouteName: 'Home',
-    }
-  );
+
+    Stat: {
+      screen: StatScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name="chart-bar" size={28} color={tintColor} />,
+      },
+    },
+
+    Cemetery: {
+      screen: CemeteryScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name="skull" size={28} color={tintColor} />,
+      },
+    },
+
+    Info: {
+      screen: InfoScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name="information-outline" size={28} color={tintColor} />,
+      },
+    },
+  },
+
+  {
+    tabBarOptions: {
+      activeTintColor: colors.red,
+      inactiveTintColor: colors.textColor,
+      showLabel: false,
+      style: {
+        backgroundColor: colors.yellow,
+      },
+    },
+  },
+
+);
 
 export default class Nav extends React.Component {
-    render() {
-        return <AuthNav />;
-    }
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
+
+  render() {
+    return <AuthNav />;
+  }
+}

@@ -1,52 +1,65 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
+import { CircleBtn, BigBtn } from '../button';
+import { today } from '../../middleware/source';
+import { database } from '../../config/firebase';
 import styles from './styles';
 
-const JournalTop = props => {
 
-    const progress = () => {
-        let color, hp;
-        if (props.clone.trend === 0) {
-            hp = '+5 %';
-            color = styles.progressGreen;
-        }else if (props.clone.trend === 1) {
-            hp = '-5 %';
-            color = styles.progressRed;
-        }else{
-            hp = '-10 %';
-            color = styles.progressRed;
-        }
-        return [hp, color]
-    };
-
-    return (
-        <View style={styles.wrapper}>
-            <View style={styles.avatarData}>
-                <View style={styles.leftData}>
-                    <Text>Клон</Text>
-                    <Text style={styles.cloneName}>{props.clone.name}</Text>
-                    <View style={styles.life}>
-                        <Text style={styles.lifeText}>
-                            {props.clone.health} %
-                            </Text>
-                    </View>
-                    <Text style={{ fontSize: 12 }}>Жизнь</Text>
-                    <View style={progress()[1]}>
-                        <Text style={styles.lifeText}>
-                            {progress()[0]}
-                            </Text>
-                    </View>
-                    <Text style={{ fontSize: 12 }}>Прогресс</Text>
-                </View>
-                <View style={styles.rightData}>
-                    {/*//место под болезни*/}
-                </View>
-            </View>
-            <Image
-                source={{uri: props.img}}
-                style = {styles.avatar}
-            />
-        </View>
-    )
+const addSigarets = (sigarets, uid, recordId) => {
+  const newSigarets = sigarets + 1;
+  database.ref(`journal/${uid}/${recordId}`).update({ sigarets: newSigarets });
 };
-export default JournalTop;
+
+const removeSigarets = (sigarets, uid, recordId) => {
+  if (sigarets > 0) {
+    const newSigarets = sigarets - 1;
+    database.ref(`journal/${uid}/${recordId}`).update({ sigarets: newSigarets });
+  }
+};
+
+const sigaretsString = (a) => {
+  const b = a % 10;
+  let total;
+  switch (b) {
+    case 1:
+      total = `${a} СИГАРЕТА`;
+      break;
+    case (2, 3, 4):
+      total = `${a} СИГАРЕТЫ`;
+      break;
+    case (11, 12, 13, 14):
+      total = `${a} СИГАРЕТ`;
+      break;
+    default:
+      total = `${a} СИГАРЕТ`;
+      break;
+  }
+  return total;
+};
+
+
+const JournalBot = (props) => {
+  const {
+    sigarets, uid, recordId, dif,
+  } = props;
+
+  return (
+    <View style={styles.botWrapper}>
+      <Text style={styles.textH1}>СКУРЕНО ЗА ДЕНЬ</Text>
+      <View style={styles.buttonSet}>
+        <TouchableOpacity onPress={() => { removeSigarets(sigarets, uid, recordId); }}>
+          <CircleBtn iconName="minus" />
+        </TouchableOpacity>
+        <Text style={styles.textNum}>
+          {sigaretsString(sigarets)}
+        </Text>
+        <TouchableOpacity onPress={() => { addSigarets(sigarets, uid, recordId); }}>
+          <CircleBtn iconName="plus" />
+        </TouchableOpacity>
+      </View>
+      <Text>{ dif }</Text>
+    </View>
+  );
+};
+export default JournalBot;
