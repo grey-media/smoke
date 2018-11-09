@@ -1,6 +1,6 @@
 import React from 'react';
-import { createStackNavigator } from 'react-navigation';
-import LoadingScreen from '../screens/Loadingcreen';
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
+import LoadingScreen from '../screens/LoadingScreen';
 import HomeScreen from '../screens/HomeScreen';
 import JournalScreen from '../screens/JournalScreen';
 import RegistrationScreen from '../screens/RegistrationScreen'
@@ -9,18 +9,18 @@ import TestScreen from '../screens/TestScreen';
 //тут мы создаем навигацию
 
 
-const AuthNav = SwitchNavigator(
+const AuthNav = createSwitchNavigator(
     {
-        LoadingScreen,
-        HomeScreen,
-        LoginScreen,
-        RegistrationScreen,
-        JournalScreen
+        Loading: LoadingScreen,
+        Home: HomeScreen,
+        Login: LoginScreen,
+        Registration: RegistrationScreen,
+        Journal: JournalScreen
     },
     {
-        initialRouteName: 'Loadingcreen'
+        initialRouteName: 'Loading'
     }
-)
+);
 
 const LogInNav = createStackNavigator(
     {

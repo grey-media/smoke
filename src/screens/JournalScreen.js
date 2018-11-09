@@ -1,43 +1,82 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 //подключаем компонент header
-import { JournalTop, TextGreen } from '../../src/components/uikit';
+import { TextGreen } from '../../src/components/uikit';
+import { JournalTop } from '../components/journal'
 import { Header } from '../../src/components/header';
 import { TabMenu } from '../../src/components/tabmenu';
 import { CircleBtn, BigBtn } from '../components/button';
 
+import { auth, database, storage } from '../config/firebase';
 
-export default class JournalScreen extends React.Component {
+import styles from './styles';
+
+class JournalScreen extends React.Component {
 
     constructor(props) {
-        super(props)
-
-        state = {
-            title: 'Журнал'
+        super(props);
+        this.state = {
+            load: true,
+            clone: '',
+            image: ''
         }
     }
 
+    componentDidMount() {
+        this.setState({ load: false });
+        const uid = auth.currentUser.uid;
+
+        database.ref(`clone/${uid}/`).orderByChild('health').startAt(1).once('child_added', snapshot => {
+            const cloneData = snapshot.val();
+            this.setState({ clone: cloneData, load: true })
+        }).then((clone) => {
+            storage.ref().child(`clone_avatar/${clone.val().avatar}`).getDownloadURL().then(url => {
+                this.setState({image: url});
+            })
+        });
+        database.ref(`journal/${uid}/`).orderByChild('date').endAt('2018-10-31').limitToLast(3).once('value', snap => {
+            // получает объект
+            const journalData = snap.val();
+            // разбираем объект
+            for (let i in journalData) {
+                for (let j in journalData[i]){
+                    //console.log(journalData[i][j])
+                }
+            }
+        })
+    }
+
     render() {
-        return (
-            <View style={{ flex: 1 }}>
-                {/* вставляем компонет header и передаем туда значение титла */}
-                <Header title={state.title} />
-                <JournalTop />
+        if(this.state.load === false) {
+            return (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+                    <ActivityIndicator size="large" />
+                </View>
+            )
+        }
+        return(
+            <View style = {{ flex: 1 }}>
+                {/* вставляем компонет header и передаем туда значение титла */ }
+                < Header title = 'Журнал' />
+                <JournalTop clone={this.state.clone} img={this.state.image} />
                 <TextGreen />
                 <View>
-                    {/* <BigBtn
+                    <BigBtn
                         btnText='- ДОБАВИТЬ СИГАРЕТУ -'
-                        btnAction={this.props.navigation.navigate('Home')}
-                    /> */}
+                        btnAction='asd'
+                    />
                     <Text>СКУРЕНО ЗА ДЕНЬ 12 СИГАРЕТ</Text>
                     <Text>на 2 сигареты меньше, чем вчера</Text>
                     <View>
-                        {/* <CircleBtn action={this.state.action} iconName={'md-arrow-back'} />
-                        <CircleBtn action={this.state.action} iconName={'md-create'} /> */}
+                        <CircleBtn action='asd' iconName={'md-arrow-back'} />
+                        <CircleBtn action='asd' iconName={'md-create'} />
                     </View>
                 </View>
                 <TabMenu />
-            </View>
+            </View >
         );
     }
 }
+
+
+export default (JournalScreen)

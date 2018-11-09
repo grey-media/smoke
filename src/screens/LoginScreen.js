@@ -6,12 +6,9 @@ import { Header } from '../../src/components/header';
 import { BigBtn } from '../components/button';
 import styles from './styles';
 
-import { connect } from 'react-redux'
-import { compose } from 'redux'
-import { firebaseConnect } from 'react-redux-firebase'
+import {auth, database} from '../config/firebase'
 
-import {fbLogin} from '../source/firebase'
-
+import {fbLogin} from '../middleware/firebase'
 class LoginScreen extends React.Component {
 
     constructor(props) {
@@ -19,13 +16,13 @@ class LoginScreen extends React.Component {
         this.state = {
             email: '',
             password: '',
+            error: '',
         };
-        console.ignoredYellowBox = [
-            'Setting a timer'
-        ];
     }
 
     render() {
+        let errorMessage = 'asd'
+        let a = ''
 
         return (
             <View style={styles.mainWrapper}>
@@ -51,8 +48,12 @@ class LoginScreen extends React.Component {
                             placeholder='Пароль'
                         />
                         <TouchableOpacity onPress={() => {
-                            fbLogin(this.props, this.state.email, this.state.password)
-                            }}>
+                            auth.signInWithEmailAndPassword(this.state.email, this.state.password).catch(error => {
+                                const errorMessage = error.message
+                                this.setState({error: errorMessage})
+                            })
+                            
+                        }}>
                             <BigBtn btnText='- ВОЙТИ -' />
                         </TouchableOpacity>
                     </View>
@@ -62,15 +63,7 @@ class LoginScreen extends React.Component {
     }
 };
 // делаем запрос к бд с выборкой нужных данных и добавляем стейт в пропсы
-export default compose(
-    
-    firebaseConnect(),
-    connect((state) => (
-        {
-        auth: state.firebase.auth,
-        data: state.firebase.data
-    }))
-)(LoginScreen)
+export default (LoginScreen)
 
 
 

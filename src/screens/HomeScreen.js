@@ -1,34 +1,14 @@
 import React from 'react';
 import { Text, View, Button, TouchableOpacity } from 'react-native';
-//подключаем компонент header
 
 import { Header } from '../../src/components/header';
 import styles from './styles';
 import { BigBtn } from '../components/button';
 
-import { connect } from 'react-redux'
-import { compose } from 'redux'
-import { firebaseConnect } from 'react-redux-firebase'
-
 class HomeScreen extends React.Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-
-        }
-        console.ignoredYellowBox = [
-            'Setting a timer'
-        ];
-    }
-    componentDidMount(){
-        //console.log(this.props.firebase.auth)
-        // if (this.props.auth.uid !== undefined){
-        //     this.props.navigation.navigate('Journal')
-        // }
-    }
     render() {
-        console.log(this.props.firebase.auth())
+
         return (
             <View style={styles.mainWrapper}>
                 <Header title='Первый шаг' />
@@ -44,20 +24,12 @@ class HomeScreen extends React.Component {
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Registration')}>
                             <BigBtn btnText='- РЕГИСТРАЦИЯ -'/>
                         </TouchableOpacity>
-
                     </View>
                 </View>
             </View>
         );
     }
 };
-// делаем запрос к бд с выборкой нужных данных и добавляем стейт в пропсы
-export default compose(
-    firebaseConnect(() => [
-        { path: 'users' } // string equivalent 'todos'
-    ]),
-    connect((state) => ({
-        users: state.firebase.data.users,
-    }))
-)(HomeScreen)
+
+export default (HomeScreen)
 

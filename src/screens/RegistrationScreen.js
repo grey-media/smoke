@@ -6,11 +6,10 @@ import { Header } from '../../src/components/header';
 import { BigBtn } from '../components/button';
 import styles from './styles';
 
-import { connect } from 'react-redux'
-import { compose } from 'redux'
-import { firebaseConnect } from 'react-redux-firebase'
+import {auth, database} from '../config/firebase'
 
-import {fbLogin, fbCreateJournal, fbCreateClone} from '../source/firebase'
+
+import { fbCreateJournal, fbCreateClone} from '../middleware/firebase'
 
 class RegistrationScreen extends React.Component {
 
@@ -23,53 +22,21 @@ class RegistrationScreen extends React.Component {
             sigarets: '15',
             error: '',
         };
-        console.ignoredYellowBox = [
-            'Setting a timer'
-        ];
     }
 
     registration = () => {
-
-        const createNewUser = ({ email, password, gender }) => {
-            this.props.firebase.createUser(
-                { email, password },
-                { email, gender }
-            ).catch((error) => {
-                const errorCode = error.code;
-                let errorMessage = ''
-                switch (errorCode) {
-                    case 'auth/email-already-in-use':
-                        errorMessage = 'Такой eMail уже существует';
-                        break;
-                    case 'auth/weak-password':
-                         errorMessage = 'Пароль слишком простой';
-                        break;
-                    default:
-                        errorMessage = 'Заполните все поля корректно';
-                  }
-                this.setState({
-                    error: errorMessage,
-                });
-            }).then(() => {
-                fbLogin(this.props, this.state.email, this.state.password)
-            }).then(() => {
-                fbCreateJournal(this.props, this.props.auth.uid, this.state.sigarets)
-            }).then(() => {
-                fbCreateClone(this.props, this.props.auth.uid, this.state.sigarets, this.state.gender)
-            }).then(() => {
-                this.props.navigation.navigate('Journal')
-            })
-        }
-
-        createNewUser({
-            email: this.state.email,
-            password: this.state.password,
-            gender: this.state.gender,
-        })
-    }
+        auth.createUserWithEmailAndPassword(this.state.email, this.state.password).then(() => {
+            fbCreateJournal(auth.currentUser.uid, this.state.sigarets)
+        }).then(() => {
+            fbCreateClone(auth.currentUser.uid, this.state.sigarets, this.state.gender)
+        }).catch(error => {
+            const errorMessage = error.message
+            this.setState({error: errorMessage})
+        });
+        
+    };
 
     render() {
-
         return (
             <View style={styles.mainWrapper}>
                 <Header title='Регистрация' />
@@ -110,7 +77,7 @@ class RegistrationScreen extends React.Component {
                             <Picker.Item label="Пол: Мужской" value="male" />
                             <Picker.Item label="Пол: Женский" value="female" />
                         </Picker>
-                        <TouchableOpacity onPress={this.registration.bind(this)}>
+                        <TouchableOpacity onPress={this.registration}>
                             <BigBtn btnText='- РЕГИСТРАЦИЯ -' />
                         </TouchableOpacity>
                     </View>
@@ -120,15 +87,7 @@ class RegistrationScreen extends React.Component {
     }
 };
 // делаем запрос к бд с выборкой нужных данных и добавляем стейт в пропсы
-export default compose(
-    
-    firebaseConnect(),
-    connect((state) => (
-        {
-        auth: state.firebase.auth,
-        data: state.firebase.data
-    }))
-)(RegistrationScreen)
+export default (RegistrationScreen)
 
 
 

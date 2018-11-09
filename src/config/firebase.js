@@ -1,3 +1,5 @@
+import * as firebase from 'firebase';
+
 const firebaseConfig = {
   apiKey: "AIzaSyCYhv1TK8imnM6TusLd_mmUvyHMibM5D70",
   authDomain: "smokekiller-bb6ba.firebaseapp.com",
@@ -7,4 +9,10 @@ const firebaseConfig = {
   messagingSenderId: "692115286074"
   };
 
-  export default firebaseConfig;
+firebase.initializeApp(firebaseConfig);
+
+export const database = firebase.database();
+
+export const auth = firebase.auth();
+
+export const storage = firebase.storage();

@@ -5,6 +5,12 @@ import { firebaseConnect, isLoaded, isEmpty, set, auth } from 'react-redux-fireb
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 
+//ordering by data
+// const clone = database.ref(`journal/${uid}/`).orderByChild('date').startAt('2018-10-30').on('child_added', snapshot => {
+//     console.log(snapshot.val().date);
+// });
+
+
 //SET, UPDATE AND PUSH DATA WORK
 //SET - insert new data to directory and delite old data/structure()
 //PUSH - create new item whis unique id
