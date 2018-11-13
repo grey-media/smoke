@@ -1,5 +1,8 @@
 {
   "expo": {
+    "android": {
+      "package": "com.example.smoke"
+    },
     "name": "SmokeKiller",
     "description": "This project is really great.",
     "slug": "smoke",

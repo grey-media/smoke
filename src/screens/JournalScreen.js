@@ -1,13 +1,10 @@
 import React from 'react';
-import { View, ActivityIndicator, Button } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 // подключаем компонент header
-import { TextGreen } from '../components/uikit';
-import { JournalTop, JournalBot } from '../components/journal';
+import { JournalTop, JournalBot, TextGreen } from '../components/journal';
 import { Header } from '../components/header';
-import { TabMenu } from '../components/tabmenu';
 import { today } from '../middleware/source';
 import { auth, database, storage } from '../config/firebase';
-import { TabNavigator } from '../config/routes';
 
 class JournalScreen extends React.Component {
 
@@ -21,6 +18,7 @@ class JournalScreen extends React.Component {
       sigarets: '',
       userId: '',
       recordId: '',
+      replica: '',
       dif: '',
       load: false,
     };
@@ -29,7 +27,7 @@ class JournalScreen extends React.Component {
   componentDidMount() {
     const { uid } = auth.currentUser;
     const thisDay = today();
-    const z = () => {
+    const getData = () => {
       database.ref(`journal/${uid}/`).orderByChild('date').endAt(thisDay).limitToLast(3)
         .on('value', (snap) => {
           const journalData = snap.val();
@@ -131,11 +129,17 @@ class JournalScreen extends React.Component {
               const cloneDataObj = snapshot.val();
               const cloneData = Object.values(cloneDataObj);
               const {
-                avatar, health, name, trend,
+                avatar, health, name, trend, motivation,
               } = cloneData[0];
               storage.ref().child(`clone_avatar/${avatar}`).getDownloadURL().then((url) => {
                 // вносим url аватара в стэйт
                 this.setState({ image: url });
+              });
+              const [replicaId, ...rest] = motivation;
+              const catId = rest.join('');
+              database.ref(`replicas/${catId}/${replicaId}`).once('value', (shot) => {
+                const replicaVal = shot.val();
+                this.setState({ replica: replicaVal });
               });
               this.setState({
                 clone: {
@@ -155,90 +159,13 @@ class JournalScreen extends React.Component {
         });
     };
 
-    z();
-
-
-
-    //   const getJournal = () => {
-    //     database.ref(`journal/${uid}/`).orderByChild('date').endAt(today()).limitToLast(1)
-    //       .on('value', (snap) => {
-    //         // получает объект
-    //         let journalData = snap.val();
-
-    //         const record = Object.keys(journalData)[0];
-    //         const day = Object.values(journalData[record])[0];
-    //         const sigaret = Object.values(journalData[record])[1];
-    //         this.setState({
-    //           date: day,
-    //           sigarets: sigaret,
-    //           recordId: record,
-    //           load: true,
-    //         });
-
-    //         // если последняя запись сделана не сегодня - создаем новую запись
-    //         // и обновляем данные клона
-    //         if (day !== today()) {
-    //           // database.ref(`journal/${uid}`).push({ date: today(), sigarets: 0 });
-    //           database.ref(`journal/${uid}/`).orderByChild('date').endAt('2018-12-12').limitToLast(3)
-    //             .on('value', (snapshot) => {
-    //               journalData = snapshot.val();
-
-    //               let dataArr = [];
-    //               Object.keys(journalData).map((key) => {
-    //                 dataArr.push(
-    //                   [
-    //                     journalData[key]['date'],
-    //                     journalData[key]['sigarets'],
-    //                     key,
-    //                   ],
-    //                 );
-    //               });
-    //               // сортированный массив с датами, сигаретами и ключами
-    //               dataArr = dataArr.sort();
-
-
-    //               // const newRecord = Object.keys(journalData)[0];
-    //               // const newDay = Object.values(journalData[newRecord])[0];
-    //               // const newSigaret = Object.values(journalData[newRecord])[1];
-
-    //               this.setState({
-    //                 date: '2018-11-8', // newDay,
-    //                 sigarets: '6', // newSigaret,
-    //                 recordId: 'asd', // newRecord,
-    //                 load: true,
-    //               });
-    //             });
-    //         }
-
-
-    //       });
-    //   };
-
-    //   const getImage = () => {
-    //     const { clone } = this.state;
-    //     storage.ref().child(`clone_avatar/${clone.avatar}`).getDownloadURL().then((url) => {
-    //       // вносим url аватара в стэйт
-    //       this.setState({ image: url });
-    //     });
-    //   };
-
-    //   const getClone = () => {
-    //     database.ref(`clone/${uid}/`).orderByChild('health').startAt(1).once('child_added', (snapshot) => {
-    //       const cloneData = snapshot.val();
-    //       this.setState({ clone: cloneData, userId: uid });
-    //     })
-    //       .then(() => {
-    //         getImage();
-    //       });
-    //   };
-
-    //   getClone();
-    //   getJournal();
+    getData();
   }
 
   render() {
+    const { navigation } = this.props;
     const {
-      load, clone, image, date, sigarets, userId, recordId, dif,
+      load, clone, image, date, sigarets, userId, recordId, dif, replica,
     } = this.state;
     // если загрузка данных не завершена - крутим спинер
     if (load === false) {
@@ -250,11 +177,11 @@ class JournalScreen extends React.Component {
     }
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
         <Header title="Журнал" />
         {/* передаем часть стэйта в пропсы компонента */}
-        <JournalTop clone={clone} img={image} />
-        <TextGreen />
+        <JournalTop clone={clone} img={image} nav={navigation} />
+        <TextGreen replica={replica} />
         <JournalBot date={date} sigarets={sigarets} uid={userId} recordId={recordId} dif={dif} />
       </View>
     );

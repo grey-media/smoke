@@ -83,4 +83,45 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     marginHorizontal: 15,
   },
+  // TEXT GREEN
+  greenWrapper: {
+    backgroundColor: '#52ac62',
+    height: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+  },
+  greenTextWrapper: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  greenText: {
+    color: '#fff',
+    fontSize: 14,
+    textAlign: 'center',
+  },
+  // YESTERDAY
+  yesterdayView: {
+    paddingVertical: 20,
+    paddingHorizontal: 40,
+  },
+  yesterdayText: {
+    fontSize: 18,
+    color: colors.brown,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  yesterdayTextSmall: {
+    fontSize: 14,
+    color: colors.brown,
+    fontWeight: '300',
+    textAlign: 'center',
+  },
+  yesterdayImg: {
+    width: w * 0.4,
+    height: w * 0.4,
+  },
 });

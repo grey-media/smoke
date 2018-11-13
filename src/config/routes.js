@@ -1,5 +1,5 @@
 import React from 'react';
-import { createSwitchNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createSwitchNavigator, createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { colors } from '../config/styles';
 import LoadingScreen from '../screens/LoadingScreen';
@@ -12,6 +12,7 @@ import CemeteryScreen from '../screens/CemeteryScreen';
 import InfoScreen from '../screens/InfoScreen';
 import TestScreen from '../screens/TestScreen';
 import MainScreen from '../screens/MainScreen';
+import YesterdayScreen from '../screens/YesterdayScreen';
 // тут мы создаем навигацию
 
 
@@ -73,6 +74,17 @@ export const TabNavigator = createBottomTabNavigator(
 
 );
 
+export const MainNav = createStackNavigator(
+  {
+    Journal: JournalScreen,
+    Yesterday: YesterdayScreen,
+    Tab: TabNavigator,
+  },
+  {
+    initialRouteName: 'Tab',
+    headerMode: 'none',
+  },
+);
 export default class Nav extends React.Component {
   constructor(props) {
     super(props);

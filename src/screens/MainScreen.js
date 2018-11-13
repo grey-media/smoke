@@ -1,5 +1,5 @@
 import React from 'react';
-import { TabNavigator } from '../config/routes';
+import { TabNavigator, MainNav } from '../config/routes';
 
 class MainScreen extends React.Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class MainScreen extends React.Component {
 
   render() {
     return (
-      <TabNavigator />
+      <MainNav />
     );
   }
 }

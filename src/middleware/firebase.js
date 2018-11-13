@@ -1,30 +1,13 @@
-import React from 'react'
-import { auth, database } from '../config/firebase'
-
-// autorization whis email and password
-// export const fbLogin = ( email, password ) => {
-//     auth.signInWithEmailAndPassword(email, password).catch(error => {
-//         const errorMessage = error.message
-//         throw error
-//     })
-// };
-
-// export const fbRegistrationUser = (email, password, gender, sigarets) => {
-//     auth.createUserWithEmailAndPassword(email, password).then(() => {
-//         fbCreateJournal(auth.currentUser.uid, sigarets)
-//     }).then(() => {
-//         fbCreateClone(auth.currentUser.uid, sigarets, gender)
-//     });
-// };
+import React from 'react';
+import { auth, database } from '../config/firebase';
 
 // create journal record whis user id
 export const fbCreateJournal = (uid, sigarets) => {
   const dateNow = new Date();
   const date = `${dateNow.getFullYear()}-${dateNow.getMonth() + 1}-${dateNow.getDate()}`;
   database.ref(`journal/${uid}`).push({ date: date, sigarets: sigarets });
-}
-
-//creact clone
+};
+// creact clone
 export const fbCreateClone = (uid, sigarets, gender) => {
   let health = '';
 
@@ -44,28 +27,29 @@ export const fbCreateClone = (uid, sigarets, gender) => {
     case '5':
       health = 70;
       break;
+    default:
+      health = 50;
   }
 
-  let rand = Math.floor(Math.random() * 11);
-  let rand_avatar = Math.floor(Math.random() * 3) + 1;
-  let rand_motivation = Math.floor(Math.random() * 11) + 1;
-  let name = ''
-  const male_names = ['Валера', 'Алёша', 'Егорка', 'Серёжа', 'Ваня', 'Саня', 'Павлик', 'Вадик', 'Женя', 'Вовчик', 'Коля']
-  const female_names = ['Галя', 'Света', 'Маруся', 'Маша', 'Настя', 'Марина', 'Таня', 'Наташа', 'Вера', 'Даша', 'Вика']
+  const rand = Math.floor(Math.random() * 11);
+  const randAvatar = Math.floor(Math.random() * 3) + 1;
+  const startMotivation = 11;
+  let name = '';
+  const maleNames = ['Валера', 'Алёша', 'Егорка', 'Серёжа', 'Ваня', 'Саня', 'Павлик', 'Вадик', 'Женя', 'Вовчик', 'Коля']
+  const femaleNames = ['Галя', 'Света', 'Маруся', 'Маша', 'Настя', 'Марина', 'Таня', 'Наташа', 'Вера', 'Даша', 'Вика']
 
   if (gender === 'male') {
-    name = male_names[rand]
+    name = maleNames[rand];
   } else {
-    name = female_names[rand]
+    name = femaleNames[rand];
   }
-  const avatar = `${rand_avatar}_${gender}_${health}.png`
+  const avatar = `${randAvatar}_${gender}_${health}.png`;
 
   database.ref(`clone/${uid}`).push({
     health: health,
     name: name,
     trend: 0,
-    motivation: rand_motivation,
+    motivation: startMotivation,
     avatar: avatar,
   });
-
-}
+};

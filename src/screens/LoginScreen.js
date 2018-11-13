@@ -1,14 +1,11 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, TextInput, Picker } from 'react-native';
 //подключаем компонент header
-
 import { Header } from '../../src/components/header';
 import { BigBtn } from '../components/button';
+import { auth, database } from '../config/firebase';
+import { fbLogin } from '../middleware/firebase';
 import styles from './styles';
-
-import { auth, database } from '../config/firebase'
-
-import { fbLogin } from '../middleware/firebase'
 class LoginScreen extends React.Component {
 
   constructor(props) {
@@ -21,7 +18,7 @@ class LoginScreen extends React.Component {
   }
 
   render() {
-    let errorMessage = 'asd'
+    let errorMessage = ''
     let a = ''
 
     return (
@@ -58,12 +55,9 @@ class LoginScreen extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
-      </View >
+      </View>
     );
   }
-};
+}
 // делаем запрос к бд с выборкой нужных данных и добавляем стейт в пропсы
-export default (LoginScreen)
-
-
-
+export default (LoginScreen);

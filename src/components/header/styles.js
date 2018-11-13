@@ -8,6 +8,13 @@ export default StyleSheet.create({
     justifyContent: 'flex-end',
     backgroundColor: colors.yellow,
   },
+  backHeader: {
+    height: 75,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-start',
+    backgroundColor: colors.yellow,
+  },
   title: {
     color: colors.textColor,
     fontSize: 16,

@@ -6,7 +6,7 @@ export const w = win.width;
 
 export const colors = {
   yellow: '#fae146',
-  yellowBorder: '#b8ac56',
+  yellowBorder: '#cfc058',
   brown: '#7e7441',
   textColor: '#222',
   red: '#d84e4b',

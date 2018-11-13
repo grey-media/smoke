@@ -1,10 +1,13 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import {
+  Text, View, Image, TouchableOpacity,
+} from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import styles from './styles';
 
 
 const JournalTop = (props) => {
-  const { img, clone } = props;
+  const { img, clone, nav } = props;
   const progress = () => {
     let color;
     let hp;
@@ -41,7 +44,10 @@ const JournalTop = (props) => {
           <Text style={{ fontSize: 12 }}>Прогресс</Text>
         </View>
         <View style={styles.rightData}>
-          { /* место под болезни */ }
+          <TouchableOpacity onPress={() => nav.navigate('Yesterday')}>
+            <MaterialCommunityIcons name="arrow-left" size={18} />
+            <Text style={{ fontSize: 14, fontWeight: '600' }}>Вчера</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <Image

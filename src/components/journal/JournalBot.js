@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
-import { CircleBtn, BigBtn } from '../button';
-import { today } from '../../middleware/source';
+import { CircleBtn } from '../button';
 import { database } from '../../config/firebase';
 import styles from './styles';
 
