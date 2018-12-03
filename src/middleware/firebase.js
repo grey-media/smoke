@@ -7,6 +7,15 @@ export const fbCreateJournal = (uid, sigarets) => {
   const date = `${dateNow.getFullYear()}-${dateNow.getMonth() + 1}-${dateNow.getDate()}`;
   database.ref(`journal/${uid}`).push({ date: date, sigarets: sigarets });
 };
+// create profile
+export const fbCreateProfile = (uid, sigarets, gender, email) => {
+  database.ref(`profile/${uid}`).push({
+    email: email,
+    gender: gender,
+    name: '',
+    sigarets: sigarets,
+  });
+};
 // creact clone
 export const fbCreateClone = (uid, sigarets, gender) => {
   let health = '';
@@ -32,8 +41,8 @@ export const fbCreateClone = (uid, sigarets, gender) => {
   }
 
   const rand = Math.floor(Math.random() * 11);
-  const randAvatar = Math.floor(Math.random() * 3) + 1;
-  const startMotivation = 11;
+  const randAvatar = Math.floor(Math.random() * 2) + 1;
+  const startMotivation = 111;
   let name = '';
   const maleNames = ['Валера', 'Алёша', 'Егорка', 'Серёжа', 'Ваня', 'Саня', 'Павлик', 'Вадик', 'Женя', 'Вовчик', 'Коля']
   const femaleNames = ['Галя', 'Света', 'Маруся', 'Маша', 'Настя', 'Марина', 'Таня', 'Наташа', 'Вера', 'Даша', 'Вика']
@@ -43,13 +52,15 @@ export const fbCreateClone = (uid, sigarets, gender) => {
   } else {
     name = femaleNames[rand];
   }
-  const avatar = `${randAvatar}_${gender}_${health}.png`;
+  const avatar = `${gender}_${randAvatar}_${health}`;
 
   database.ref(`clone/${uid}`).push({
     health: health,
+    days: 1,
     name: name,
     trend: 0,
     motivation: startMotivation,
     avatar: avatar,
+    final: '',
   });
 };

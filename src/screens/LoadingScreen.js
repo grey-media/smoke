@@ -10,7 +10,7 @@ class LoadingScreen extends React.Component {
 
   render() {
     const { navigation } = this.props;
-    //auth.signOut()
+    // auth.signOut()
     // если пользователь не активирован перенаправляем на авторизацию
     // если авторизирован - на журнал
     auth.onAuthStateChanged((user) => {

@@ -7,7 +7,7 @@ import { Header } from '../components/header';
 import { BigBtn } from '../components/button';
 import styles from './styles';
 import { auth } from '../config/firebase';
-import { fbCreateJournal, fbCreateClone } from '../middleware/firebase';
+import { fbCreateJournal, fbCreateClone, fbCreateProfile } from '../middleware/firebase';
 
 class RegistrationScreen extends React.Component {
 
@@ -22,21 +22,12 @@ class RegistrationScreen extends React.Component {
     };
   }
 
-  registration() {
+
+  render() {
     const {
       email, password, sigarets, gender,
     } = this.state;
-    auth.createUserWithEmailAndPassword(email, password).then(() => {
-      fbCreateJournal(auth.currentUser.uid, sigarets);
-    }).then(() => {
-      fbCreateClone(auth.currentUser.uid, sigarets, gender);
-    }).catch((error) => {
-      const errorMessage = error.message;
-      this.setState({ error: errorMessage });
-    });
-  }
 
-  render() {
     return (
       <View style={styles.mainWrapper}>
         <Header title="Регистрация" />
@@ -77,7 +68,20 @@ class RegistrationScreen extends React.Component {
               <Picker.Item label="Пол: Мужской" value="male" />
               <Picker.Item label="Пол: Женский" value="female" />
             </Picker>
-            <TouchableOpacity onPress={this.registration}>
+            <TouchableOpacity onPress={() => {
+              auth.createUserWithEmailAndPassword(email, password).then(() => {
+                fbCreateJournal(auth.currentUser.uid, sigarets);
+              }).then(() => {
+                fbCreateClone(auth.currentUser.uid, sigarets, gender);
+              }).then(() => {
+                fbCreateProfile(auth.currentUser.uid, sigarets, gender, email);
+              })
+                .catch((error) => {
+                  const errorMessage = error.message;
+                  this.setState({ error: errorMessage });
+                });
+            }}
+            >
               <BigBtn btnText='- РЕГИСТРАЦИЯ -' />
             </TouchableOpacity>
           </View>

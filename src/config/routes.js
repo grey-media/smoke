@@ -32,6 +32,7 @@ const AuthNav = createSwitchNavigator(
 export const TabNavigator = createBottomTabNavigator(
 
   {
+
     Journal: {
       screen: JournalScreen,
       navigationOptions: {
@@ -59,6 +60,7 @@ export const TabNavigator = createBottomTabNavigator(
         tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name="information-outline" size={28} color={tintColor} />,
       },
     },
+
   },
 
   {
@@ -68,10 +70,11 @@ export const TabNavigator = createBottomTabNavigator(
       showLabel: false,
       style: {
         backgroundColor: colors.yellow,
+        borderTopWidth: 1,
+        borderTopColor: 'white',
       },
     },
   },
-
 );
 
 export const MainNav = createStackNavigator(

@@ -1,10 +1,13 @@
 {
   "expo": {
     "android": {
-      "package": "com.example.smoke"
+      "package": "com.greymedia.smokekiller"
+    },
+    "ios": {
+      "bundleIdentifier": "com.greymedia.smokekiller"
     },
     "name": "SmokeKiller",
-    "description": "This project is really great.",
+    "description": "this application helps to quit smoking",
     "slug": "smoke",
     "privacy": "public",
     "sdkVersion": "30.0.0",
@@ -22,9 +25,6 @@
     },
     "assetBundlePatterns": [
       "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    }
+    ]
   }
 }

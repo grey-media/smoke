@@ -1,26 +1,25 @@
 import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Text } from 'react-native';
 // подключаем компонент header
-import { JournalTop, JournalBot, TextGreen } from '../components/journal';
+import {
+  JournalTop, JournalBot, TextGreen, JournalDie,
+} from '../components/journal';
 import { Header } from '../components/header';
 import { today } from '../middleware/source';
-import { auth, database, storage } from '../config/firebase';
+import { auth, database } from '../config/firebase';
 
 class JournalScreen extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      // по умолчанию данные не загружены
-      clone: '',
-      image: '',
-      date: '',
+      clone: {},
       sigarets: '',
-      userId: '',
+      userId: auth.currentUser.uid,
       recordId: '',
       replica: '',
       dif: '',
-      load: false,
+      load: true,
     };
   }
 
@@ -61,99 +60,126 @@ class JournalScreen extends React.Component {
           // проверяем, есть ли запись за текущий день
           // если нет, создаем, если да - заносим данные в state
           if (dataArr[0][0] !== thisDay) {
-
             // заносим новую запись в журнал с текущей датой
             database.ref(`journal/${uid}`).push({ date: today(), sigarets: 0 });
             // получаем текущее состояние клона
             database.ref(`clone/${uid}/`).orderByChild('health').startAt(1).once('value', (snapshot) => {
               const cloneDataObj = snapshot.val();
-              const cloneData = Object.values(cloneDataObj);
-              const cloneKey = Object.keys(cloneDataObj)[0];
-              const {
-                avatar, health, name,
-              } = cloneData[0];
-              let newAvatar = '';
-              let newHealth = '';
-              let newMotivation = '';
-              let newTrend = '';
-              // определяем тенденцию "бросания курить"
-              if (dataArr[1][1] === undefined || dataArr[0][1] === undefined || dataArr[1][1] > dataArr[0][1]) {
-                newTrend = 0;
-              } else if (dataArr[1][1] === dataArr[0][1]) {
-                newTrend = 1;
-              } else {
-                newTrend = 2;
-              }
-              // вычисляем новое кол-во ХП
-              switch (newTrend) {
-                case 0:
-                  newHealth = health + 5;
-                  newHealth = newHealth > 100 ? 100 : newHealth;
-                  break;
-                case 1:
-                  newHealth = health - 5;
-                  newHealth = newHealth < 0 ? 0 : newHealth;
-                  break;
-                case 2:
-                  newHealth = health - 10;
-                  newHealth = newHealth < 0 ? 0 : newHealth;
-                  break;
-                default:
-                  newHealth = health;
-                  break;
-              }
-              // выбираем новое сообщение от клона
-              // (0(положительное высказывание)rand(случайный номер высказывания)хх(число ХП ))
-              const rand = Math.floor(Math.random() * 2) + 1;
-              if (newTrend === 0) {
-                newMotivation = `${rand}0${newHealth}`;
-              } else {
-                newMotivation = `${rand}1${newHealth}`;
-              }
+              if (cloneDataObj !== null) {
+                const cloneData = Object.values(cloneDataObj);
+                const cloneKey = Object.keys(cloneDataObj)[0];
+                const {
+                  avatar, health, days, final,
+                } = cloneData[0];
+                let newAvatar = '';
+                let newHealth = '';
+                let newMotivation = '';
+                let newTrend = '';
+                const newDays = days + 1;
+                // определяем тенденцию "бросания курить"
+                if (dataArr[1][1] === undefined || dataArr[0][1] === undefined || dataArr[1][1] > dataArr[0][1]) {
+                  newTrend = 0;
+                } else if (dataArr[1][1] === 0 && dataArr[0][1] === 0) {
+                  newTrend = 0;
+                } else if (dataArr[1][1] === dataArr[0][1]) {
+                  newTrend = 1;
+                } else {
+                  newTrend = 2;
+                }
+                // вычисляем новое кол-во ХП
+                switch (newTrend) {
+                  case 0:
+                    newHealth = health + 5;
+                    newHealth = newHealth > 100 ? 100 : newHealth;
+                    break;
+                  case 1:
+                    newHealth = health - 5;
+                    newHealth = newHealth < 0 ? 0 : newHealth;
+                    break;
+                  case 2:
+                    newHealth = health - 10;
+                    newHealth = newHealth < 0 ? 0 : newHealth;
+                    break;
+                  default:
+                    newHealth = health;
+                    break;
+                }
+                // выбираем новое сообщение от клона
+                // (0(положительное высказывание)rand(случайный номер высказывания)хх(число ХП ))
+                const rand = Math.floor(Math.random() * 2) + 1;
+                if (newTrend === 0) {
+                  newMotivation = `${rand}0${newHealth}`;
+                } else {
+                  newMotivation = `${rand}1${newHealth}`;
+                }
 
-              // выбираем новый аватар
-              // разбиваем строку на составляющие
-              const oldAvatar = avatar.split('_');
-              newAvatar = `${oldAvatar[0]}_${oldAvatar[1]}_${newHealth}.png`;
+                // выбираем новый аватар
+                // разбиваем строку на составляющие
+                const oldAvatar = avatar.split('_');
+                newAvatar = `${oldAvatar[0]}_${oldAvatar[1]}_${newHealth}`;
 
-              // обновляем аватар
-              database.ref(`clone/${uid}/${cloneKey}`).update({
-                avatar: newAvatar,
-                health: newHealth,
-                motivation: newMotivation,
-                trend: newTrend,
-              });
+                const finalArr = [
+                  'Пал в неравном бою с никотиновой зависимостью.',
+                  'Пытался спрятать свои проблемы в дыму сигарет.',
+                  'Ненавидел сигареты и всеми силами уничтожал их.',
+                  'Еще один клон, которому не удалось обмануть смерть.',
+                  'Лежит в холодной земле за поступки своего хозяина',
+                ];
+                // создаем траурную речь
+                let newFinal = '';
+                // выбираем случайную запись из массива
+                if (newHealth === 0) {
+                  const r = Math.floor(Math.random() * finalArr.length);
+                  newFinal = finalArr[r];
+                }
+
+                // обновляем аватар
+                database.ref(`clone/${uid}/${cloneKey}`).update({
+                  avatar: newAvatar,
+                  days: newDays,
+                  health: newHealth,
+                  motivation: newMotivation,
+                  trend: newTrend,
+                  final: newFinal,
+                });
+              }
             });
           } else {
             database.ref(`clone/${uid}/`).orderByChild('health').startAt(1).on('value', (snapshot) => {
               const cloneDataObj = snapshot.val();
-              const cloneData = Object.values(cloneDataObj);
-              const {
-                avatar, health, name, trend, motivation,
-              } = cloneData[0];
-              storage.ref().child(`clone_avatar/${avatar}`).getDownloadURL().then((url) => {
-                // вносим url аватара в стэйт
-                this.setState({ image: url });
-              });
-              const [replicaId, ...rest] = motivation;
-              const catId = rest.join('');
-              database.ref(`replicas/${catId}/${replicaId}`).once('value', (shot) => {
-                const replicaVal = shot.val();
-                this.setState({ replica: replicaVal });
-              });
-              this.setState({
-                clone: {
-                  name: name,
-                  health: health,
-                  trend: trend,
-                },
-                date: thisDay,
-                sigarets: dataArr[0][1],
-                userId: uid,
-                recordId: dataArr[0][2],
-                dif: difference,
-                load: true,
-              });
+              // если нет живых клонов - выдаем страницу "создания нового клона"
+              if (cloneDataObj === null) {
+                this.setState({
+                  clone: {
+                    health: 0,
+                  },
+                  load: true,
+                });
+                // в остальных случаях выводим инфу о клоне
+              } else {
+                const cloneData = Object.values(cloneDataObj);
+                const {
+                  avatar, health, name, trend, motivation,
+                } = cloneData[0];
+                const [replicaId, ...rest] = motivation;
+                const catId = rest.join('');
+                database.ref(`replicas/${catId}/${replicaId}`).once('value', (shot) => {
+                  const replicaVal = shot.val();
+                  this.setState({ replica: replicaVal });
+                });
+                this.setState({
+                  clone: {
+                    name: name,
+                    health: health,
+                    trend: trend,
+                    avatar: avatar,
+                  },
+                  sigarets: dataArr[0][1],
+                  recordId: dataArr[0][2],
+                  dif: difference,
+                  load: true,
+                });
+              }
             });
           }
         });
@@ -165,7 +191,7 @@ class JournalScreen extends React.Component {
   render() {
     const { navigation } = this.props;
     const {
-      load, clone, image, date, sigarets, userId, recordId, dif, replica,
+      load, clone, sigarets, userId, recordId, dif, replica,
     } = this.state;
     // если загрузка данных не завершена - крутим спинер
     if (load === false) {
@@ -175,14 +201,21 @@ class JournalScreen extends React.Component {
         </View>
       );
     }
-
+    if (clone.health === 0) { // || clone.health === undefined
+      return (
+        <View style={{ flex: 1 }}>
+          <Header title="Журнал" />
+          <JournalDie uid={userId} />
+        </View>
+      );
+    }
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <Header title="Журнал" />
         {/* передаем часть стэйта в пропсы компонента */}
-        <JournalTop clone={clone} img={image} nav={navigation} />
+        <JournalTop clone={clone} nav={navigation} />
         <TextGreen replica={replica} />
-        <JournalBot date={date} sigarets={sigarets} uid={userId} recordId={recordId} dif={dif} />
+        <JournalBot sigarets={sigarets} uid={userId} recordId={recordId} dif={dif} />
       </View>
     );
   }

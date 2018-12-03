@@ -18,8 +18,6 @@ class LoginScreen extends React.Component {
   }
 
   render() {
-    let errorMessage = ''
-    let a = ''
 
     return (
       <View style={styles.mainWrapper}>
@@ -30,7 +28,7 @@ class LoginScreen extends React.Component {
             <Text style={styles.logoSlogan}>СПАСИ СЕБЯ ОТ СИГАРЕТ</Text>
           </View>
           <View style={styles.regForm}>
-            <Text>{this.state.error}</Text>
+            <Text style={{ paddingHorizontal: 20 }}>{this.state.error}</Text>
             <TextInput
               style={styles.formInput}
               onChangeText={(email) => this.setState({ email })}

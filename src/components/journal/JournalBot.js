@@ -6,8 +6,10 @@ import styles from './styles';
 
 
 const addSigarets = (sigarets, uid, recordId) => {
-  const newSigarets = sigarets + 1;
-  database.ref(`journal/${uid}/${recordId}`).update({ sigarets: newSigarets });
+  if (sigarets < 30) {
+    const newSigarets = sigarets + 1;
+    database.ref(`journal/${uid}/${recordId}`).update({ sigarets: newSigarets });
+  }
 };
 
 const removeSigarets = (sigarets, uid, recordId) => {
@@ -57,7 +59,7 @@ const JournalBot = (props) => {
           <CircleBtn iconName="plus" />
         </TouchableOpacity>
       </View>
-      <Text>{ dif }</Text>
+      <Text>{dif}</Text>
     </View>
   );
 };

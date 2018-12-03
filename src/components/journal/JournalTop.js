@@ -4,10 +4,11 @@ import {
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import styles from './styles';
+import { avatarImage } from '../../image/clone_avatar';
 
 
 const JournalTop = (props) => {
-  const { img, clone, nav } = props;
+  const { clone, nav } = props;
   const progress = () => {
     let color;
     let hp;
@@ -51,7 +52,7 @@ const JournalTop = (props) => {
         </View>
       </View>
       <Image
-        source={{ uri: img }}
+        source={avatarImage[clone.avatar]}
         style={styles.avatar}
       />
     </View>

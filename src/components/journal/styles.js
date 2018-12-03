@@ -25,8 +25,8 @@ export default StyleSheet.create({
     padding: 20,
   },
   avatar: {
-    width: w * 0.6,
-    height: w * 0.6,
+    width: w * 0.65,
+    height: w * 0.65,
   },
   cloneName: {
     fontWeight: '600',
