@@ -40,12 +40,12 @@ class YesterdayScreen extends React.Component {
           });
           // сортированный массив с датами, сигаретами и ключами
           dataArr = dataArr.sort().reverse();
-
           // определяем разницу сигарет
           let difference = '';
-          if (dataArr[1][1] === undefined) {
+          if (dataArr[1] === undefined) {
             difference = '';
-          } else if (dataArr[1][1] === dataArr[0][1]) {
+          } else 
+          if (dataArr[1][1] === dataArr[0][1]) {
             difference = 'как и за прошлый день';
           } else if (dataArr[1][1] < dataArr[0][1]) {
             const x = dataArr[0][1] - dataArr[1][1];

@@ -23,11 +23,15 @@ class CemeteryScreen extends React.Component {
     database.ref(`clone/${uid}`).orderByChild('health').equalTo(0)
       .once('value', (snap) => {
         const data = snap.val();
-        const dataArr = [];
-        Object.keys(data).map((key) => {
-          dataArr.push([data[key].name, data[key].avatar, data[key].days, data[key].final]);
-        });
-        this.setState({ data: dataArr, load: true });
+        if (data !== null) {
+          const dataArr = [];
+          Object.keys(data).map((key) => {
+            dataArr.push([data[key].name, data[key].avatar, data[key].days, data[key].final]);
+          });
+          this.setState({ data: dataArr, load: true, empty: false });
+        } else {
+          this.setState({ load: true });
+        }
       });
   }
 
@@ -60,8 +64,7 @@ class CemeteryScreen extends React.Component {
       );
     };
 
-
-    if (empty === false) {
+    if (empty === true) {
       return (<EmptyPage />);
     }
     if (load === false) {

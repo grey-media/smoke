@@ -165,8 +165,10 @@ class JournalScreen extends React.Component {
                 const catId = rest.join('');
                 database.ref(`replicas/${catId}/${replicaId}`).once('value', (shot) => {
                   const replicaVal = shot.val();
+                  
                   this.setState({ replica: replicaVal });
                 });
+                
                 this.setState({
                   clone: {
                     name: name,

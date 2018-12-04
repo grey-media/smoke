@@ -47,7 +47,7 @@ export const fbCreateClone = (uid, sigarets, gender) => {
 
   const rand = Math.floor(Math.random() * 11);
   const randAvatar = Math.floor(Math.random() * 2) + 1;
-  const startMotivation = 111;
+  const startMotivation = '111';
   let name = '';
   const maleNames = ['Валера', 'Алёша', 'Егорка', 'Серёжа', 'Ваня', 'Саня', 'Павлик', 'Вадик', 'Женя', 'Вовчик', 'Коля']
   const femaleNames = ['Галя', 'Света', 'Маруся', 'Маша', 'Настя', 'Марина', 'Таня', 'Наташа', 'Вера', 'Даша', 'Вика']
