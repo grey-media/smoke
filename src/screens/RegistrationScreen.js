@@ -3,7 +3,7 @@ import {
   Text, View, TouchableOpacity, TextInput, Picker,
 } from 'react-native';
 // подключаем компонент header
-import { Header } from '../components/header';
+import { BackHeader } from '../components/header';
 import { BigBtn } from '../components/button';
 import styles from './styles';
 import { auth } from '../config/firebase';
@@ -24,13 +24,14 @@ class RegistrationScreen extends React.Component {
 
 
   render() {
+    const { navigation } = this.props;
     const {
       email, password, sigarets, gender,
     } = this.state;
 
     return (
       <View style={styles.mainWrapper}>
-        <Header title="Регистрация" />
+        <BackHeader title="Регистрация" back={navigation} />
         <View style={styles.mainWrapper}>
           <View style={styles.mainLogo}>
             <Text style={styles.logoText}>SmokeKiller</Text>
@@ -70,7 +71,8 @@ class RegistrationScreen extends React.Component {
             </Picker>
             <TouchableOpacity onPress={() => {
               auth.createUserWithEmailAndPassword(email, password).then(() => {
-                fbCreateJournal(auth.currentUser.uid, sigarets);
+                fbCreateJournal(auth.currentUser.uid, sigarets, 0);
+                fbCreateJournal(auth.currentUser.uid, sigarets, 1);
               }).then(() => {
                 fbCreateClone(auth.currentUser.uid, sigarets, gender);
               }).then(() => {

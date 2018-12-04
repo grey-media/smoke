@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, TextInput, Picker } from 'react-native';
 //подключаем компонент header
-import { Header } from '../../src/components/header';
+import { BackHeader } from '../components/header';
 import { BigBtn } from '../components/button';
 import { auth, database } from '../config/firebase';
 import { fbLogin } from '../middleware/firebase';
@@ -18,10 +18,10 @@ class LoginScreen extends React.Component {
   }
 
   render() {
-
+    const { navigation } = this.props;
     return (
       <View style={styles.mainWrapper}>
-        <Header title='Авторизация' />
+        <BackHeader title="Авторизация" back={navigation} />
         <View style={styles.mainWrapper}>
           <View style={styles.mainLogo}>
             <Text style={styles.logoText}>SmokeKiller</Text>

@@ -16,7 +16,7 @@ import YesterdayScreen from '../screens/YesterdayScreen';
 // тут мы создаем навигацию
 
 
-const AuthNav = createSwitchNavigator(
+const AuthNav = createStackNavigator(
   {
     Loading: LoadingScreen,
     Home: HomeScreen,
@@ -26,6 +26,7 @@ const AuthNav = createSwitchNavigator(
   },
   {
     initialRouteName: 'Loading',
+    headerMode: 'none',
   },
 );
 

@@ -1,11 +1,16 @@
 import React from 'react';
 import { auth, database } from '../config/firebase';
+import { today, yesterday } from './source';
 
 // create journal record whis user id
-export const fbCreateJournal = (uid, sigarets) => {
-  const dateNow = new Date();
-  const date = `${dateNow.getFullYear()}-${dateNow.getMonth() + 1}-${dateNow.getDate()}`;
-  database.ref(`journal/${uid}`).push({ date: date, sigarets: sigarets });
+export const fbCreateJournal = (uid, sigarets, day) => {
+  if (day === 0) {
+    const dateNow = today();
+    database.ref(`journal/${uid}`).push({ date: dateNow, sigarets: 0 });
+  } else {
+    const dateNow = yesterday();
+    database.ref(`journal/${uid}`).push({ date: dateNow, sigarets: sigarets });
+  }
 };
 // create profile
 export const fbCreateProfile = (uid, sigarets, gender, email) => {
