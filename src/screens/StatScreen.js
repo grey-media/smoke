@@ -19,7 +19,7 @@ class StatScreen extends React.Component {
     const { uid } = this.state;
     const sigaretsArr = [];
     database.ref(`journal/${uid}/`).orderByChild('date').limitToLast(300)
-      .once('value', (snap) => {
+      .on('value', (snap) => {
         const statData = snap.val();
         Object.keys(statData).map((key) => {
           sigaretsArr.push(statData[key].sigarets);

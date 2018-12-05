@@ -21,7 +21,7 @@ class CemeteryScreen extends React.Component {
   componentDidMount() {
     const { uid } = this.state;
     database.ref(`clone/${uid}`).orderByChild('health').equalTo(0)
-      .once('value', (snap) => {
+      .on('value', (snap) => {
         const data = snap.val();
         if (data !== null) {
           const dataArr = [];
