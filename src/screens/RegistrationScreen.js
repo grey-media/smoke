@@ -17,7 +17,7 @@ class RegistrationScreen extends React.Component {
       email: '',
       password: '',
       gender: 'male',
-      sigarets: '15',
+      sigarets: 15,
       error: '',
     };
   }
@@ -28,7 +28,6 @@ class RegistrationScreen extends React.Component {
     const {
       email, password, sigarets, gender,
     } = this.state;
-
     return (
       <View style={styles.mainWrapper}>
         <BackHeader title="Регистрация" back={navigation} />
@@ -56,11 +55,11 @@ class RegistrationScreen extends React.Component {
               selectedValue={this.state.sigarets}
               style={styles.formInput}
               onValueChange={(itemValue) => this.setState({ sigarets: itemValue })}>
-              <Picker.Item label="курю меньше 5 сигарет" value="5" />
-              <Picker.Item label="курю от 5 до 10 сигарет" value="10" />
-              <Picker.Item label="курю от 10 до 15 сигарет" value="15" />
-              <Picker.Item label="курю от 15 до 20 сигарет" value="20" />
-              <Picker.Item label="курю больше 20 сигарет" value="25" />
+              <Picker.Item label="курю меньше 5 сигарет" value={5} />
+              <Picker.Item label="курю от 5 до 10 сигарет" value={10} />
+              <Picker.Item label="курю от 10 до 15 сигарет" value={15} />
+              <Picker.Item label="курю от 15 до 20 сигарет" value={20} />
+              <Picker.Item label="курю больше 20 сигарет" value={25} />
             </Picker>
             <Picker
               selectedValue={this.state.gender}
