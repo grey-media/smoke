@@ -51,7 +51,7 @@ class CemeteryScreen extends React.Component {
           </View>
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'black' }}>
             <Text style={{ fontSize: 18, fontWeight: '600', color: colors.yellowBorder }}>Кладбище ваших клонов пусто.</Text>
-            <Text style={{ fontSize: 14, color: 'white' }}>Постарайтесь что бы это не изменилось.</Text>
+            <Text style={{ fontSize: 14, color: 'white' }}>Постарайтесь, чтобы это не изменилось.</Text>
           </View>
         </View>
       );

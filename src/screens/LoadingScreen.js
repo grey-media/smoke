@@ -14,7 +14,7 @@ class LoadingScreen extends React.Component {
     // если пользователь не активирован перенаправляем на авторизацию
     // если авторизирован - на журнал
     auth.onAuthStateChanged((user) => {
-      navigation.navigate(user ? 'Journal' : 'Home');
+      navigation.navigate(user ? 'Journal' : 'Registration');
     });
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

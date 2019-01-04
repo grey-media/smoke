@@ -1,13 +1,17 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, TextInput, Picker } from 'react-native';
-//подключаем компонент header
-import { BackHeader } from '../components/header';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  Image,
+} from 'react-native';
 import { BigBtn } from '../components/button';
-import { auth, database } from '../config/firebase';
-import { fbLogin } from '../middleware/firebase';
+import { auth } from '../config/firebase';
 import styles from './styles';
-class LoginScreen extends React.Component {
+import { colors } from '../config/styles';
 
+class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,37 +23,52 @@ class LoginScreen extends React.Component {
 
   render() {
     const { navigation } = this.props;
+    const { email, password, error } = this.state;
+
     return (
       <View style={styles.mainWrapper}>
-        <BackHeader title="Авторизация" back={navigation} />
         <View style={styles.mainWrapper}>
           <View style={styles.mainLogo}>
+            <Image
+              source={require('../image/icon.png')}
+              style={styles.logoPic}
+            />
             <Text style={styles.logoText}>SmokeKiller</Text>
             <Text style={styles.logoSlogan}>СПАСИ СЕБЯ ОТ СИГАРЕТ</Text>
-          </View>
-          <View style={styles.regForm}>
-            <Text style={{ paddingHorizontal: 20 }}>{this.state.error}</Text>
+            <Text style={styles.reg}>Авторизируйтесь</Text>
+            <Text style={styles.regSmall}>для восстановления прогресса</Text>
+            <Text style={styles.error}>{error}</Text>
             <TextInput
               style={styles.formInput}
               onChangeText={(email) => this.setState({ email })}
-              value={this.state.email}
-              placeholder='Электронная почта'
+              value={email}
+              placeholder="e-Mail"
+              underlineColorAndroid={colors.white}
+              placeholderTextColor={colors.middleGrey}
             />
             <TextInput
               style={styles.formInput}
               secureTextEntry={true}
               onChangeText={(password) => this.setState({ password })}
-              value={this.state.password}
-              placeholder='Пароль'
+              value={password}
+              placeholder="Пароль"
+              underlineColorAndroid={colors.white}
+              placeholderTextColor={colors.middleGrey}
             />
             <TouchableOpacity onPress={() => {
-              auth.signInWithEmailAndPassword(this.state.email, this.state.password).catch(error => {
-                const errorMessage = error.message
-                this.setState({ error: errorMessage })
-              })
-
-            }}>
-              <BigBtn btnText='- ВОЙТИ -' />
+              auth.signInWithEmailAndPassword(email, password)
+                .catch((alert) => {
+                  const errorMessage = alert.message;
+                  this.setState({ error: errorMessage });
+                });
+            }}
+            >
+              <BigBtn btnText="- ВХОД -" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Registration')}>
+              <Text style={styles.loginText}>
+                Регистрация
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

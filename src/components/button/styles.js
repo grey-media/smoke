@@ -3,17 +3,19 @@ import { colors, w } from '../../config/styles';
 
 export default StyleSheet.create({
   btn: {
-    backgroundColor: colors.yellow,
-    width: w * 0.7,
-    paddingVertical: 12,
-    borderRadius: 50,
-    marginTop: 25,
+    backgroundColor: colors.brown,
+    width: 280,
+    height: 41,
+    paddingTop: 7,
+    borderRadius: 5,
+    marginTop: 10,
     borderColor: colors.yellowBorder,
-    borderWidth: 1,
+    borderWidth: 2,
   },
   btnText: {
     fontSize: 16,
     fontWeight: '600',
+    color: '#fff',
     textAlign: 'center',
   },
   icon: {

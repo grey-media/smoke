@@ -1,34 +1,16 @@
 import React from 'react';
-import { createSwitchNavigator, createBottomTabNavigator, createStackNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { colors } from '../config/styles';
+import { colors } from './styles';
 import LoadingScreen from '../screens/LoadingScreen';
-import HomeScreen from '../screens/HomeScreen';
 import JournalScreen from '../screens/JournalScreen';
 import RegistrationScreen from '../screens/RegistrationScreen';
 import LoginScreen from '../screens/LoginScreen';
 import StatScreen from '../screens/StatScreen';
 import CemeteryScreen from '../screens/CemeteryScreen';
 import InfoScreen from '../screens/InfoScreen';
-import TestScreen from '../screens/TestScreen';
-import MainScreen from '../screens/MainScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import YesterdayScreen from '../screens/YesterdayScreen';
-// тут мы создаем навигацию
-
-
-const AuthNav = createStackNavigator(
-  {
-    Loading: LoadingScreen,
-    Home: HomeScreen,
-    Login: LoginScreen,
-    Journal: MainScreen,
-    Registration: RegistrationScreen,
-  },
-  {
-    initialRouteName: 'Loading',
-    headerMode: 'none',
-  },
-);
 
 export const TabNavigator = createBottomTabNavigator(
 
@@ -37,37 +19,43 @@ export const TabNavigator = createBottomTabNavigator(
     Journal: {
       screen: JournalScreen,
       navigationOptions: {
-        tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name="human" size={28} color={tintColor} />,
+        tabBarIcon: () => <MaterialCommunityIcons name="human" size={28} color={colors.black} />,
       },
     },
 
     Stat: {
       screen: StatScreen,
       navigationOptions: {
-        tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name="chart-bar" size={28} color={tintColor} />,
+        tabBarIcon: () => <MaterialCommunityIcons name="chart-bar" size={28} color={colors.black} />,
       },
     },
 
     Cemetery: {
       screen: CemeteryScreen,
       navigationOptions: {
-        tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name="skull" size={28} color={tintColor} />,
+        tabBarIcon: () => <MaterialCommunityIcons name="skull" size={28} color={colors.black} />,
       },
     },
 
     Info: {
       screen: InfoScreen,
       navigationOptions: {
-        tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name="information-outline" size={28} color={tintColor} />,
+        tabBarIcon: () => <MaterialCommunityIcons name="information-outline" size={28} color={colors.black} />,
       },
     },
 
+    Profile: {
+      screen: ProfileScreen,
+      navigationOptions: {
+        tabBarIcon: () => <MaterialCommunityIcons name="account-circle" size={28} color={colors.black} />,
+      },
+    },
   },
 
   {
     tabBarOptions: {
       activeTintColor: colors.red,
-      inactiveTintColor: colors.textColor,
+      inactiveTintColor: colors.black,
       showLabel: false,
       style: {
         backgroundColor: colors.yellow,
@@ -89,6 +77,20 @@ export const MainNav = createStackNavigator(
     headerMode: 'none',
   },
 );
+
+const AuthNav = createStackNavigator(
+  {
+    Loading: LoadingScreen,
+    Login: LoginScreen,
+    Journal: MainNav,
+    Registration: RegistrationScreen,
+  },
+  {
+    initialRouteName: 'Loading',
+    headerMode: 'none',
+  },
+);
+
 export default class Nav extends React.Component {
   constructor(props) {
     super(props);

@@ -1,15 +1,17 @@
 import React from 'react';
-import { View, ActivityIndicator, Text } from 'react-native';
-// подключаем компонент header
+import { connect } from 'react-redux';
+import { View, ActivityIndicator } from 'react-native';
 import {
-  JournalTop, JournalBot, TextGreen, JournalDie,
+  JournalTop,
+  JournalBot,
+  TextGreen,
+  JournalDie,
 } from '../components/journal';
 import { Header } from '../components/header';
 import { today } from '../middleware/source';
 import { auth, database } from '../config/firebase';
 
 class JournalScreen extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -165,10 +167,10 @@ class JournalScreen extends React.Component {
                 const catId = rest.join('');
                 database.ref(`replicas/${catId}/${replicaId}`).once('value', (shot) => {
                   const replicaVal = shot.val();
-                  
+
                   this.setState({ replica: replicaVal });
                 });
-                
+
                 this.setState({
                   clone: {
                     name: name,
@@ -223,5 +225,15 @@ class JournalScreen extends React.Component {
   }
 }
 
+// передаем нужные части глобального стэйта в пропсы
+function mapStateToProps(state) {
+  return {
+    // присваиваем ключам пропсов значения
+    all: state.cloneData,
+  };
+}
 
-export default (JournalScreen);
+// конектим стор и экшены с сомпонентом
+export default connect(
+  mapStateToProps,
+)(JournalScreen);

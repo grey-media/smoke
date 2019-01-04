@@ -5,8 +5,32 @@ export default StyleSheet.create({
   mainWrapper: {
     flex: 1,
   },
+  logoPic: {
+    width: 80,
+    height: 80,
+    marginTop: -100,
+  },
+  error: {
+    color: colors.red,
+    fontWeight: '600',
+    marginBottom: 5,
+  },
+  reg: {
+    fontSize: 16,
+    marginTop: 25,
+    fontWeight: '600',
+  },
+  regSmall: {
+    fontSize: 14,
+  },
+  loginText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: colors.brown,
+    marginTop: 15,
+  },
   logoText: {
-    fontSize: 50,
+    fontSize: 45,
     fontWeight: '600',
     color: colors.brown,
     borderBottomWidth: 7,
@@ -14,7 +38,7 @@ export default StyleSheet.create({
   },
   logoSlogan: {
     color: colors.brown,
-    fontSize: 22,
+    fontSize: 19,
     fontWeight: '300',
     paddingTop: 5,
   },
@@ -24,21 +48,15 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  mainReg: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  regForm: {
-    flex: 2.5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   formInput: {
     width: 280,
-    height: 50,
-    paddingHorizontal: 15,
+    height: 40,
+    paddingHorizontal: 20,
     marginBottom: 5,
-  }
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: colors.yellowBorder,
+  },
 
 });
