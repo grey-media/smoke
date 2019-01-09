@@ -8,6 +8,8 @@ export default StyleSheet.create({
     backgroundColor: colors.yellow,
     justifyContent: 'flex-end',
     alignItems: 'center',
+    paddingTop: 40,
+    paddingBottom: 30,
   },
   avatarData: {
     flex: 1,
@@ -25,8 +27,8 @@ export default StyleSheet.create({
     padding: 20,
   },
   avatar: {
-    width: w * 0.65,
-    height: w * 0.65,
+    width: w * 0.6,
+    height: w * 0.6,
   },
   cloneName: {
     fontWeight: '600',
@@ -38,6 +40,7 @@ export default StyleSheet.create({
     marginTop: 3,
     paddingVertical: 2,
     width: 60,
+    borderRadius: 4,
   },
   lifeText: {
     textAlign: 'center',
@@ -50,18 +53,24 @@ export default StyleSheet.create({
     marginTop: 12,
     paddingVertical: 2,
     width: 60,
+    borderRadius: 4,
   },
   progressRed: {
     backgroundColor: colors.red,
     marginTop: 12,
     paddingVertical: 2,
     width: 60,
+    borderRadius: 4,
   },
   // Bottom Bar
   botWrapper: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: -30,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    backgroundColor: colors.white,
   },
   buttonSet: {
     flexDirection: 'row',
@@ -78,18 +87,22 @@ export default StyleSheet.create({
     fontWeight: '600',
     backgroundColor: colors.lightGrey,
     borderColor: colors.middleGrey,
-    borderRadius: 50,
+    borderRadius: 7,
     paddingTop: 15,
     paddingHorizontal: 20,
     marginHorizontal: 15,
   },
   // TEXT GREEN
-  greenWrapper: {
+  textGreenWrapper: {
     backgroundColor: '#52ac62',
     height: 60,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 20,
+    paddingTop: 25,
+    paddingBottom: 60,
+    marginTop: -30,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
   },
   greenTextWrapper: {
     flex: 1,
@@ -123,5 +136,19 @@ export default StyleSheet.create({
   yesterdayImg: {
     width: w * 0.4,
     height: w * 0.4,
+  },
+  cloneDieWrapper: {
+    alignItems: 'center',
+  },
+  cloneDieBigText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: colors.yellowBorder,
+  },
+  cloneDieSmallText: {
+    fontSize: 14,
+    color: colors.white,
+    textAlign: 'center',
+    marginBottom: 5,
   },
 });

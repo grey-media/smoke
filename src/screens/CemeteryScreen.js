@@ -3,9 +3,12 @@ import {
   View, ScrollView, Text, Image, ActivityIndicator,
 } from 'react-native';
 import { Header } from '../components/header';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { w, colors } from '../config/styles';
 import { auth, database, storage } from '../config/firebase';
 import { avatarImage } from '../image/clone_avatar';
+import styles from './styles';
+
 
 class CemeteryScreen extends React.Component {
   constructor(props) {
@@ -41,17 +44,20 @@ class CemeteryScreen extends React.Component {
     } = this.state;
     const EmptyPage = () => {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
-          <Header title="Кладбище клонов" />
-          <View>
+        <View style={styles.mainWrapper}>
+          <View style={styles.yellowTopMediumBox}>
+            <Text style={styles.yellowTopBigText}>КЛАДБИЩЕ КЛОНОВ</Text>
+            <Text style={styles.yellowTopMediumText}>Данные о клонах</Text>
+            <Text style={styles.yellowTopSmallText}>безвременно покинувших виртуальный мир</Text>
+          </View>
+          <View style={styles.blackBotMediumBox}>
+            <MaterialCommunityIcons name="skull" size={52} style={{ color: colors.yellow, marginBottom: 50, }} />
+            <Text style={{ fontSize: 18, fontWeight: '600', color: colors.yellowBorder }}>Кладбище ваших клонов пусто.</Text>
+            <Text style={{ fontSize: 14, color: 'white' }}>Постарайтесь, чтобы это не изменилось.</Text>
             <Image
               style={{ width: w, height: w * 0.6 }}
               source={require('../image/cemetery.png')}
             />
-          </View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'black' }}>
-            <Text style={{ fontSize: 18, fontWeight: '600', color: colors.yellowBorder }}>Кладбище ваших клонов пусто.</Text>
-            <Text style={{ fontSize: 14, color: 'white' }}>Постарайтесь, чтобы это не изменилось.</Text>
           </View>
         </View>
       );

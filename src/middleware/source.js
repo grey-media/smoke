@@ -8,7 +8,7 @@ const today = () => {
   }
 
   if (month < 10) {
-    month = `0${dateNow.getMonth()}`;
+    month = `0${dateNow.getMonth() + 1}`;
   }
   const todayDate = `${dateNow.getFullYear()}-${month}-${day}`;
   return todayDate;
@@ -25,7 +25,7 @@ const yesterday = () => {
   }
 
   if (month < 10) {
-    month = `0${dateNow.getMonth()}`;
+    month = `0${dateNow.getMonth() + 1}`;
   }
   const todayDate = `${dateNow.getFullYear()}-${month}-${day}`;
   return todayDate;

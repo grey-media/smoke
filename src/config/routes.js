@@ -11,6 +11,7 @@ import CemeteryScreen from '../screens/CemeteryScreen';
 import InfoScreen from '../screens/InfoScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import YesterdayScreen from '../screens/YesterdayScreen';
+import CreateScreen from '../screens/CreateScreen';
 
 export const TabNavigator = createBottomTabNavigator(
 
@@ -58,9 +59,9 @@ export const TabNavigator = createBottomTabNavigator(
       inactiveTintColor: colors.black,
       showLabel: false,
       style: {
-        backgroundColor: colors.yellow,
+        backgroundColor: colors.white,
         borderTopWidth: 1,
-        borderTopColor: 'white',
+        borderTopColor: colors.middleGrey,
       },
     },
   },
@@ -84,6 +85,7 @@ const AuthNav = createStackNavigator(
     Login: LoginScreen,
     Journal: MainNav,
     Registration: RegistrationScreen,
+    Create: CreateScreen,
   },
   {
     initialRouteName: 'Loading',

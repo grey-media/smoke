@@ -2,23 +2,22 @@ import { StyleSheet } from 'react-native';
 import { colors } from '../../config/styles';
 
 export default StyleSheet.create({
-  header: {
-    height: 75,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+  headerScroll: {
     backgroundColor: colors.yellow,
+    paddingHorizontal: 30,
+    paddingVertical: 50,
   },
-  backHeader: {
-    height: 75,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'flex-start',
-    backgroundColor: colors.yellow,
+  headerBigText: {
+    fontSize: 24,
+    color: colors.brown,
+    fontWeight: '600',
+    marginBottom: 15,
   },
-  title: {
-    color: colors.textColor,
+  headerMediumText: {
     fontSize: 16,
     fontWeight: '600',
-    paddingBottom: 15,
+  },
+  headerSmallText: {
+    fontSize: 14,
   },
 });

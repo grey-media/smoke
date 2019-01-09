@@ -2,6 +2,7 @@ import React from 'react';
 import { View, ScrollView, Text } from 'react-native';
 import { Header } from '../components/header';
 import { colors } from '../config/styles';
+import styles from './styles';
 
 class InfoScreen extends React.Component {
   constructor(props) {
@@ -17,9 +18,13 @@ class InfoScreen extends React.Component {
     const { navigation } = this.props;
     return (
 
-      <ScrollView style={{ backgroundColor: 'white' }}>
-        <Header title="Информация" />
-        <View style={{ padding: 30 }}>
+      <ScrollView style={styles.mainWrapperScroll}>
+        <Header
+          big="SmokeKiller"
+          medium="Описание и советы"
+          small="по использованию приложения"
+        />
+        <View style={styles.whiteBotMediumBoxScroll}>
           <Text style={{ fontSize: 18, fontWeight: '600', color: colors.green }}>
             SmokeKiller помогает бросить курить.
           </Text>

@@ -1,8 +1,14 @@
 import React from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+} from 'react-native';
 import { Header } from '../components/header';
 import { h, w, colors } from '../config/styles';
 import { auth, database } from '../config/firebase';
+import styles from './styles';
+
 
 
 class StatScreen extends React.Component {
@@ -82,16 +88,14 @@ class StatScreen extends React.Component {
       return result;
     };
 
-    if (load === false) {
-      return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <ActivityIndicator size="large" />
-        </View>
-      );
-    }
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
-        <Header title="Статистика" />
+      <ScrollView style={styles.mainWrapperScroll}>
+        <Header
+          big="СТАТИСТИКА"
+          medium="следите за прогрессом"
+          small="на пути к здоровой жизни"
+        />
+        <View style={styles.whiteBotMediumBoxScroll}>
         <View style={{ flex: 1, alignItems: 'center' }}>
           <Text style={{ fontWeight: '600', paddingTop: 40, fontSize: 18 }}>Динамика</Text>
           <Text style={{ fontWeight: '600' }}>за последние 7 дней</Text>
@@ -149,7 +153,8 @@ class StatScreen extends React.Component {
             <Text style={{ fontSize: 18, color: colors.green, fontWeight: '600' }}>{dinamicSig(averageSigWeek(sigarets), averageSig(sigarets))}</Text>
           </View>
         </View>
-      </View >
+        </View>
+      </ScrollView>
     );
   }
 }
