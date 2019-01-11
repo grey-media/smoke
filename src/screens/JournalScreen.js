@@ -34,29 +34,8 @@ class JournalScreen extends React.Component {
     } = this.props;
     const thisDay = today();
     const { uid } = auth.currentUser;
-
-    if (clone.health === 0) {
-      return (
-        <View style={styles.mainWrapper}>
-          <View style={styles.yellowTopMediumBox}>
-            <Text style={styles.yellowTopBigText}>КЛАДБИЩЕ КЛОНОВ</Text>
-            <Text style={styles.yellowTopMediumText}>Угрюмое место</Text>
-            <Text style={styles.yellowTopSmallText}>тут сыро и холодно</Text>
-          </View>
-          <View style={styles.blackBotMediumBox}>
-            <MaterialCommunityIcons name="skull" size={52} style={{ color: colors.yellow, marginBottom: 15 }} />
-            <CloneDieView uid={uid} />
-            <Image
-              style={{ width: w, height: w * 0.6 }}
-              source={require('../image/cemetery.png')}
-            />
-          </View>
-        </View>
-      );
-    }
-
     if (journal.today.date !== '' && journal.today.date !== thisDay) {
-      const newTrend = newCloneTrend(journal.before.sigarets, journal.yesterday.sigarets);
+      const newTrend = newCloneTrend(journal.yesterday.sigarets, journal.today.sigarets);
       const newHealth = newCloneHealth(newTrend, clone.health);
       const newMotivation = newCloneMotivation(newTrend, newHealth);
       const newAvatar = newCloneAvatar(newHealth, clone.avatar);
@@ -77,6 +56,26 @@ class JournalScreen extends React.Component {
       });
       // заносим новую запись в журнал с текущей датой
       database.ref(`journal/${uid}`).push({ date: thisDay, sigarets: 0 });
+    }
+
+    if (clone.health === 0) {
+      return (
+        <View style={styles.mainWrapper}>
+          <View style={styles.yellowTopMediumBox}>
+            <Text style={styles.yellowTopBigText}>КЛАДБИЩЕ КЛОНОВ</Text>
+            <Text style={styles.yellowTopMediumText}>Угрюмое место</Text>
+            <Text style={styles.yellowTopSmallText}>тут сыро и холодно</Text>
+          </View>
+          <View style={styles.blackBotMediumBox}>
+            <MaterialCommunityIcons name="skull" size={52} style={{ color: colors.yellow, marginBottom: 15 }} />
+            <CloneDieView uid={uid} />
+            <Image
+              style={{ width: w, height: w * 0.6 }}
+              source={require('../image/cemetery.png')}
+            />
+          </View>
+        </View>
+      );
     }
 
     return (

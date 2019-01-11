@@ -46,7 +46,6 @@ class CalcSigaretsView extends React.Component {
         const snap = snapshot.val();
         // get sort journall array
         const data = getSortJournalData(snap);
-
         if (data[2] !== undefined) {
           insertAll(data);
         } else {
@@ -58,7 +57,8 @@ class CalcSigaretsView extends React.Component {
 
   render() {
     const {
-      journal, day
+      journal,
+      day,
     } = this.props;
     const { uid } = auth.currentUser;
     // correct start data depending on the screens

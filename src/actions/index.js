@@ -14,6 +14,7 @@ import {
   journalInsertYesterday,
   journalInsertBefore,
   journalInsertAll,
+  journalInsertStatistic,
 } from './journal';
 
 export {
@@ -28,4 +29,5 @@ export {
   journalInsertYesterday,
   journalInsertBefore,
   journalInsertAll,
+  journalInsertStatistic,
 };

@@ -17,3 +17,8 @@ export const journalInsertAll = data => ({
   type: 'JOURNAL_INSERT_ALL',
   payload: data,
 });
+
+export const journalInsertStatistic = data => ({
+  type: 'JOURNAL_INSERT_STATISTIC',
+  payload: data,
+});

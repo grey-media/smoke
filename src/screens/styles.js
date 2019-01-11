@@ -11,6 +11,10 @@ export default StyleSheet.create({
   row: {
     flexDirection: 'row',
   },
+  direction: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   mainWrapper: {
     flex: 1,
     backgroundColor: colors.white,
@@ -120,11 +124,26 @@ export default StyleSheet.create({
     paddingTop: 30,
     marginTop: -30,
   },
+  blackBotMediumBoxScroll: {
+    backgroundColor: colors.black,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingHorizontal: 0,
+    paddingBottom: 50,
+    paddingTop: 30,
+    marginTop: -30,
+  },
   whiteBotBigText: {
     fontSize: 24,
     color: colors.middleGrey,
     fontWeight: '600',
     marginTop: -20,
+  },
+  whiteBotTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginTop: 30,
+    marginBottom: 10,
   },
   whiteBotSmallText: {
     fontSize: 16,

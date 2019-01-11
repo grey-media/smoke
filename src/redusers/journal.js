@@ -14,6 +14,7 @@ const initialState = {
     sigarets: '',
     key: '',
   },
+  statistic: 'empty',
 };
 
 export default function journalData(state = initialState, action) {
@@ -63,6 +64,11 @@ export default function journalData(state = initialState, action) {
           sigarets: action.payload[2][1],
           key: action.payload[2][2],
         },
+      };
+    case 'JOURNAL_INSERT_STATISTIC':
+      return {
+        ...state,
+        statistic: action.payload,
       };
     default:
       return state;

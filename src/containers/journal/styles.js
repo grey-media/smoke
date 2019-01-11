@@ -100,6 +100,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 25,
     paddingBottom: 60,
+    paddingHorizontal: 30,
     marginTop: -30,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,

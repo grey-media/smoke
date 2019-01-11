@@ -88,15 +88,49 @@ export const sigaretsToString = (a) => {
     case 1:
       total = `${a} СИГАРЕТА`;
       break;
-    case (2, 3, 4):
+    case 2:
+    case 3:
+    case 4:
       total = `${a} СИГАРЕТЫ`;
       break;
-    case (11, 12, 13, 14):
+    case 11:
+    case 12:
+    case 13:
+    case 14:
       total = `${a} СИГАРЕТ`;
       break;
     default:
       total = `${a} СИГАРЕТ`;
       break;
+  }
+  return total;
+};
+export const sigaretsToStringLine = (a) => {
+  let total;
+
+  if (a > 29) {
+    total = '30+ сигарет';
+  } else {
+    const b = a % 10;
+    switch (b) {
+      case 1:
+        total = `${a} сигарет`;
+        break;
+      case 2:
+      case 3:
+      case 4:
+        total = `${a} сигареты`;
+        break;
+      case 11:
+      case 12:
+      case 13:
+      case 14:
+        total = `${a} сигарет`;
+        break;
+      default:
+        total = `${a} сигарет`;
+        break;
+    }
   }
   return total;
 };
@@ -169,4 +203,36 @@ export const cloneFinaleMessage = () => {
   const rand = Math.floor(Math.random() * finalMessage.length);
   const final = finalMessage[rand];
   return final;
-}
+};
+
+export const statisticLineWidth = (sigarets) => {
+  const persent = 100 * sigarets / 30;
+  const result = `${persent}%`;
+  return result;
+};
+
+export const averageSig = (data) => {
+  let summ = 0;
+  let dataArr = [];
+  if (data.length > 0 && data !== 'empty') {
+    dataArr = data;
+  }
+  dataArr.map((item) => {
+    summ += item[1];
+    return summ;
+  });
+  return Math.round(summ / dataArr.length);
+};
+
+export const summSig = (data) => {
+  let summ = 0;
+  let dataArr = [];
+  if (data.length > 0 && data !== 'empty') {
+    dataArr = data;
+  }
+  dataArr.map((item) => {
+    summ += item[1];
+    return summ;
+  });
+  return summ;
+};

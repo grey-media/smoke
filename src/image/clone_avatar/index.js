@@ -1,6 +1,6 @@
 const avatarImage = {
   male_1_0: require('./male_1_0.png'),
-  male_1_05: require('./male_1_05.png'),
+  male_1_5: require('./male_1_5.png'),
   male_1_10: require('./male_1_10.png'),
   male_1_15: require('./male_1_15.png'),
   male_1_20: require('./male_1_20.png'),
@@ -22,7 +22,7 @@ const avatarImage = {
   male_1_100: require('./male_1_100.png'),
 
   male_2_0: require('./male_2_0.png'),
-  male_2_05: require('./male_2_05.png'),
+  male_2_5: require('./male_2_5.png'),
   male_2_10: require('./male_2_10.png'),
   male_2_15: require('./male_2_15.png'),
   male_2_20: require('./male_2_20.png'),
@@ -44,7 +44,7 @@ const avatarImage = {
   male_2_100: require('./male_2_100.png'),
 
   female_1_0: require('./female_1_0.png'),
-  female_1_05: require('./female_1_05.png'),
+  female_1_5: require('./female_1_5.png'),
   female_1_10: require('./female_1_10.png'),
   female_1_15: require('./female_1_15.png'),
   female_1_20: require('./female_1_20.png'),
@@ -66,7 +66,7 @@ const avatarImage = {
   female_1_100: require('./female_1_100.png'),
 
   female_2_0: require('./female_2_0.png'),
-  female_2_05: require('./female_2_05.png'),
+  female_2_5: require('./female_2_5.png'),
   female_2_10: require('./female_2_10.png'),
   female_2_15: require('./female_2_15.png'),
   female_2_20: require('./female_2_20.png'),
@@ -86,8 +86,6 @@ const avatarImage = {
   female_2_90: require('./female_2_90.png'),
   female_2_95: require('./female_2_95.png'),
   female_2_100: require('./female_2_100.png'),
-
-
 };
 
 export { avatarImage };

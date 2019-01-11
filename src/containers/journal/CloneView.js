@@ -64,7 +64,6 @@ class CloneView extends React.Component {
     const progressColor = clone.trend > 0
       ? styles.progressRed
       : styles.progressGreen;
-
     return (
       <View style={styles.wrapper}>
         <View style={styles.avatarData}>
