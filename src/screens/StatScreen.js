@@ -6,6 +6,7 @@ import {
   Text,
   ScrollView,
 } from 'react-native';
+import { AdMobBanner, AdMobInterstitial } from 'expo';
 import { Header } from '../components/header';
 import { auth, database } from '../config/firebase';
 import styles from './styles';
@@ -14,10 +15,13 @@ import { SevenDaysGraphic } from '../components/graphics';
 import { StickerBig } from '../components/sticker';
 import { averageSig, summSig } from '../source/source';
 
+
 class StatScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      adv: false,
+    };
   }
 
   componentDidMount() {
@@ -26,7 +30,7 @@ class StatScreen extends React.Component {
       journal,
       insertStatistic,
     } = this.props;
-    
+
     // if store haven't statistic data
     if (journal.statistic === 'empty') {
       // get data
@@ -46,6 +50,17 @@ class StatScreen extends React.Component {
   }
 
   render() {
+    const { adv } = this.state;
+    const admob = async () => {
+      AdMobInterstitial.setAdUnitID('ca-app-pub-7433331453298293/4207160946'); // Test ID, Replace with your-admob-unit-id
+      AdMobInterstitial.setTestDeviceID('EMULATOR');
+      await AdMobInterstitial.requestAdAsync();
+      await AdMobInterstitial.showAdAsync();
+      this.setState({ adv: true });
+    };
+    if (adv === false) {
+      admob();
+    }
     const { journal } = this.props;
     const weekData = journal.statistic.slice(0, 7);
     return (
@@ -60,6 +75,14 @@ class StatScreen extends React.Component {
           <Text style={styles.whiteBotTitle}>
             Сводка:
           </Text>
+          <View style={styles.banner}>
+            <AdMobBanner
+              bannerSize="banner"
+              adUnitID="ca-app-pub-7433331453298293/2925868866" // Test ID, Replace with your-admob-unit-id
+              testDeviceID="EMULATOR"
+              onDidFailToReceiveAdWithError={this.bannerError}
+            />
+          </View>
           <View style={styles.direction}>
             <StickerBig
               textSmall="Среднее кол-во сигарет в день"
@@ -86,6 +109,14 @@ class StatScreen extends React.Component {
               textBig="ЗА ВСЕ ВРЕМЯ"
               val={summSig(journal.statistic)}
               color="yellow"
+            />
+          </View>
+          <View style={styles.banner}>
+            <AdMobBanner
+              bannerSize="banner"
+              adUnitID="ca-app-pub-7433331453298293/2925868866" // Test ID, Replace with your-admob-unit-id
+              testDeviceID="EMULATOR"
+              onDidFailToReceiveAdWithError={this.bannerError}
             />
           </View>
         </View>

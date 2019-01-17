@@ -12,6 +12,7 @@ import { avatarImage } from '../image/clone_avatar';
 import styles from './styles';
 
 
+
 class CemeteryScreen extends React.Component {
   constructor(props) {
     super(props);

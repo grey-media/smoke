@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { CircleBtn } from '../../components/button';
+import { CircleBtn, WhiteContentBigBtn } from '../../components/button';
 import { auth, database } from '../../config/firebase';
 import styles from './styles';
 import {
@@ -14,12 +14,14 @@ import {
   journalInsertYesterday,
   journalInsertBefore,
   journalInsertAll,
+  dataUpdateMessage,
 } from '../../actions';
 import {
   today,
   getSortJournalData,
   sigaretsToString,
   sigaretsDifference,
+  cloneMessage,
 } from '../../source/source';
 import {
   fbAddSigarets,
@@ -58,7 +60,9 @@ class CalcSigaretsView extends React.Component {
   render() {
     const {
       journal,
+      appData,
       day,
+      updateMessage,
     } = this.props;
     const { uid } = auth.currentUser;
     // correct start data depending on the screens
@@ -85,6 +89,8 @@ class CalcSigaretsView extends React.Component {
               uid,
               sigaretsKey,
             );
+            const message = cloneMessage('good');
+            updateMessage(message);
           }}
           >
             <CircleBtn iconName="minus" />
@@ -98,11 +104,25 @@ class CalcSigaretsView extends React.Component {
               uid,
               sigaretsKey,
             );
+            const message = cloneMessage('bad');
+            updateMessage(message);
           }}
           >
             <CircleBtn iconName="plus" />
           </TouchableOpacity>
         </View>
+        <TouchableOpacity onPress={() => {
+          fbRemoveSigarets(
+            1,
+            uid,
+            sigaretsKey,
+          );
+          const message = cloneMessage('good');
+          updateMessage(message);
+        }}
+        >
+          <WhiteContentBigBtn btnText="НЕ КУРЮ" />
+        </TouchableOpacity>
         <Text>{difference}</Text>
       </View>
     );
@@ -114,6 +134,7 @@ function mapStateToProps(state) {
     // присваиваем ключам пропсов значения из хранилища редакса
     journal: state.journalData,
     user: state.userData,
+    appData: state.appData,
   };
 }
 
@@ -124,6 +145,7 @@ function mapDispatchToProps(dispatch) {
     insertToday: journalInsertToday,
     insertYesterday: journalInsertYesterday,
     insertBefore: journalInsertBefore,
+    updateMessage: dataUpdateMessage,
   }, dispatch);
 }
 // конектим стор и экшены с компонентом

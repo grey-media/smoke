@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, ScrollView, Text } from 'react-native';
+import { AdMobBanner } from 'expo';
 import { Header } from '../components/header';
 import { colors } from '../config/styles';
 import styles from './styles';
@@ -49,6 +50,14 @@ class InfoScreen extends React.Component {
             каждый новый день вы уменьшали количество выкуриваемых сигарет. В противном случае
             запас здоровья клона будет уменьшаться
           </Text>
+          <View style={styles.banner}>
+            <AdMobBanner
+              bannerSize="banner"
+              adUnitID="ca-app-pub-7433331453298293/2925868866" // Test ID, Replace with your-admob-unit-id
+              testDeviceID="EMULATOR"
+              onDidFailToReceiveAdWithError={this.bannerError}
+            />
+          </View>
           <Text style={{ fontSize: 18, fontWeight: '600', color: colors.green, paddingTop: 7 }}>
             Советы
           </Text>
@@ -66,6 +75,14 @@ class InfoScreen extends React.Component {
             занятия (прочитайте книгу, напишите пост в соц. сети и т.п). Сосредоточится на двух
             вещах у вас не получится, и желание покурить быстро отступит.
           </Text>
+          <View style={styles.banner}>
+            <AdMobBanner
+              bannerSize="banner"
+              adUnitID="ca-app-pub-7433331453298293/2925868866" // Test ID, Replace with your-admob-unit-id
+              testDeviceID="EMULATOR"
+              onDidFailToReceiveAdWithError={this.bannerError}
+            />
+          </View>
         </View>
       </ScrollView>
     );

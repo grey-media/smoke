@@ -1,4 +1,9 @@
-import { motivations, finalMessage } from '../data/motivations';
+import {
+  motivations,
+  finalMessage,
+  goodMessage,
+  badMessage,
+} from '../data/motivations';
 
 export const today = () => {
   const dateNow = new Date();
@@ -85,6 +90,12 @@ export const sigaretsToString = (a) => {
   const b = a % 10;
   let total;
   switch (b) {
+    case 11:
+    case 12:
+    case 13:
+    case 14:
+      total = `${a} СИГАРЕТ`;
+      break;
     case 1:
       total = `${a} СИГАРЕТА`;
       break;
@@ -93,18 +104,13 @@ export const sigaretsToString = (a) => {
     case 4:
       total = `${a} СИГАРЕТЫ`;
       break;
-    case 11:
-    case 12:
-    case 13:
-    case 14:
-      total = `${a} СИГАРЕТ`;
-      break;
     default:
       total = `${a} СИГАРЕТ`;
       break;
   }
   return total;
 };
+
 export const sigaretsToStringLine = (a) => {
   let total;
 
@@ -113,6 +119,12 @@ export const sigaretsToStringLine = (a) => {
   } else {
     const b = a % 10;
     switch (b) {
+      case 11:
+      case 12:
+      case 13:
+      case 14:
+        total = `${a} сигарет`;
+        break;
       case 1:
         total = `${a} сигарет`;
         break;
@@ -120,12 +132,6 @@ export const sigaretsToStringLine = (a) => {
       case 3:
       case 4:
         total = `${a} сигареты`;
-        break;
-      case 11:
-      case 12:
-      case 13:
-      case 14:
-        total = `${a} сигарет`;
         break;
       default:
         total = `${a} сигарет`;
@@ -236,3 +242,9 @@ export const summSig = (data) => {
   });
   return summ;
 };
+
+export const cloneMessage = (trend) => {
+  const val = trend === 'good' ? goodMessage : badMessage;
+  const rand = Math.floor(Math.random() * val.length);
+  return val[rand];
+}

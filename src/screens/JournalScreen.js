@@ -32,6 +32,7 @@ class JournalScreen extends React.Component {
       journal,
       clone,
     } = this.props;
+
     const thisDay = today();
     const { uid } = auth.currentUser;
     if (journal.today.date !== '' && journal.today.date !== thisDay) {

@@ -56,4 +56,19 @@ export default StyleSheet.create({
     marginTop: -3,
     fontSize: 11,
   },
+  whiteContentBigBtnWrapper: {
+    backgroundColor: colors.yellow,
+    width: 250,
+    height: 41,
+    paddingTop: 9,
+    borderRadius: 5,
+    marginTop: 10,
+    borderColor: colors.yellowBorder,
+    borderWidth: 1,
+  },
+  whiteContentBigBtnText: {
+    fontSize: 16,
+    color: colors.black,
+    textAlign: 'center',
+  },
 });

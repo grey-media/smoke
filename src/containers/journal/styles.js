@@ -16,6 +16,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     width: w,
     marginBottom: -200,
+    zIndex: 2,
   },
   leftData: {
     flex: 1,
@@ -151,5 +152,21 @@ export default StyleSheet.create({
     color: colors.white,
     textAlign: 'center',
     marginBottom: 5,
+  },
+  cloneViewMessage: {
+    backgroundColor: colors.white,
+    borderRadius: 4,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    marginTop: 50,
+    flexDirection: 'row',
+  },
+  cloneViewMessageArrow: {
+    width: 15,
+    height: 15,
+    backgroundColor: colors.white,
+    transform: [{ rotate: '45deg' }],
+    marginTop: 3,
+    marginLeft: -16,
   },
 });

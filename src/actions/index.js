@@ -16,6 +16,9 @@ import {
   journalInsertAll,
   journalInsertStatistic,
 } from './journal';
+import {
+  dataUpdateMessage,
+} from './data';
 
 export {
   cloneInsertData,
@@ -30,4 +33,5 @@ export {
   journalInsertBefore,
   journalInsertAll,
   journalInsertStatistic,
+  dataUpdateMessage,
 };

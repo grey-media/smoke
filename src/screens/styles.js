@@ -155,4 +155,8 @@ export default StyleSheet.create({
     color: colors.middleGrey,
     marginTop: 60,
   },
+  banner: {
+    alignItems: 'center',
+    marginVertical: 7,
+  },
 });

@@ -57,13 +57,58 @@ class CloneView extends React.Component {
     const {
       clone,
       navigation,
+      appData,
     } = this.props;
+    const renderCloneViewMessage = () => {
+      return (
+        <View style={styles.wrapper}>
+          <View style={styles.avatarData}>
+            <View style={styles.leftData}>
+              <Text>Клон</Text>
+              <Text style={styles.cloneName}>{clone.name}</Text>
+              <View style={styles.life}>
+                <Text style={styles.lifeText}>
+                  {clone.health}
+                </Text>
+              </View>
+              <Text style={{ fontSize: 12 }}>Жизнь</Text>
+              <View style={progressColor}>
+                <Text style={styles.lifeText}>
+                  {progress}
+                </Text>
+              </View>
+              <Text style={{ fontSize: 12 }}>Прогресс</Text>
+            </View>
+            <View style={styles.rightData}>
+              <TouchableOpacity onPress={() => navigation.navigate('Yesterday')}>
+                <ContentBtn text="вчера" icon="md-arrow-back" />
+              </TouchableOpacity>
+              <View style={styles.cloneViewMessage}>
+                <View style={styles.cloneViewMessageArrow} />
+                <Text style={styles.cloneViewMessageText}>{appData.message}</Text>
+              </View>
+            </View>
+          </View>
+          <Image
+            source={avatarImage[clone.avatar]}
+            style={styles.avatar}
+          />
+        </View>
+      );
+    };
+
     // get progress bar text
     const progress = cloneProgressBar(clone.trend);
     // get progress bar color
     const progressColor = clone.trend > 0
       ? styles.progressRed
       : styles.progressGreen;
+
+    if (appData.message !== '') {
+      return (
+        renderCloneViewMessage()
+      );
+    }
     return (
       <View style={styles.wrapper}>
         <View style={styles.avatarData}>
@@ -102,6 +147,7 @@ function mapStateToProps(state) {
     // присваиваем ключам пропсов значения из хранилища редакса
     clone: state.cloneData,
     user: state.userData,
+    appData: state.appData,
   };
 }
 

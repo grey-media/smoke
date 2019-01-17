@@ -1,8 +1,15 @@
 const initialState = {
-  uid: '',
-  email: '',
+  message: '',
 };
 
 export default function appData(state = initialState, action) {
-  return state;
+  switch (action.type) {
+    case 'DATA_UPDATE_MESSAGE':
+      return {
+        ...state,
+        message: action.payload,
+      };
+    default:
+      return state;
+  }
 }

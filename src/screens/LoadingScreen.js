@@ -18,7 +18,7 @@ class LoadingScreen extends React.Component {
       if (user === null) {
         navigation.navigate('Registration');
       } else { // если пользователь авторизирован - проверяем наличие клонов
-        database.ref(`clone/${user.uid}/`).limitToLast(1).on('value', (snapshot) => {
+        database.ref(`clone/${auth.currentUser.uid}/`).limitToLast(1).on('value', (snapshot) => {
           // id clone data is empty - redirect to the CreateScreen, else - to the JournalScreen
           navigation.navigate(snapshot.val() ? 'Tab' : 'Create');
         });

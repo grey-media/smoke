@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import { AdMobBanner } from 'expo';
 import { Header } from '../components/header';
 import { auth, database } from '../config/firebase';
 import { userInsertData } from '../actions';
@@ -54,7 +55,15 @@ class ProfileScreen extends React.Component {
           <TwoLinesText textBig="Сигареты:" textSmall={sigarets} icon="smoking" />
           <Text>
             * Тут скоро появятся новые функции. Надеемся быть полезными для вас и вашего здоровья :)
-        </Text>
+          </Text>
+          <View style={styles.banner}>
+            <AdMobBanner
+              bannerSize="banner"
+              adUnitID="ca-app-pub-7433331453298293/2925868866" // Test ID, Replace with your-admob-unit-id
+              testDeviceID="EMULATOR"
+              onDidFailToReceiveAdWithError={this.bannerError}
+            />
+          </View>
           <TouchableOpacity
             onPress={() => auth.signOut()}
           >
